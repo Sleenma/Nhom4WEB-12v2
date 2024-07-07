@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List and Form of MauSacs</title>
+</head>
+<body>
+<h1>List of MauSacs</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>MauSac Code</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="mauSac : ${mauSacs}">
+        <td th:text="${mauSac.id}"></td>
+        <td th:text="${mauSac.maMauSac}"></td>
+        <td th:text="${mauSac.tenMauSac}"></td>
+        <td th:text="${mauSac.moTa}"></td>
+        <td th:text="${mauSac.trangThai}"></td>
+        <td>
+            <a th:href="@{/SanPham/MauSacs/edit/{id}(id=${mauSac.id})}">Edit</a> |
+            <a th:href="@{/SanPham/MauSacs/delete/{id}(id=${mauSac.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>Add/Edit MauSac</h1>
+
+<form th:object="${mauSac}" th:action="@{/SanPham/MauSacs/save}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>MauSac Code: <input type="text" th:field="*{maMauSac}" /></label><br/>
+    <label>Name: <input type="text" th:field="*{tenMauSac}" /></label><br/>
+    <label>Description: <input type="text" th:field="*{moTa}" /></label><br/>
+    <label>Status: <input type="text" th:field="*{trangThai}" /></label><br/>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

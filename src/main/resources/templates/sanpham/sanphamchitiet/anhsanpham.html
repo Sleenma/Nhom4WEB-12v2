@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ảnh Sản Phẩm</title>
+</head>
+<body>
+<h1>Ảnh Sản Phẩm</h1>
+
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+
+<form th:action="@{/SanPham/AnhSanPhams/Add}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${asp != null ? asp.id : ''}" />
+    <label for="link">Ảnh:</label>
+    <input id="link" name="link" type="file" required />
+    <br/>
+    <button type="submit">Add</button>
+</form>
+
+<h2>Danh sách ảnh sản phẩm</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên Ảnh</th>
+        <th>Ảnh</th>
+        <th>Link</th>
+        <th>Trạng Thái</th>
+        <th>Hành Động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="anhSanPham : ${anhSanPhams}">
+        <td th:text="${anhSanPham.id}"></td>
+        <td th:text="${anhSanPham.tenAnhSanPham}"></td>
+        <td>
+            <img th:src="@{${anhSanPham.link}}" th:alt="${anhSanPham.tenAnhSanPham}" width="100" />
+        </td>
+        <td>
+            <a th:href="@{${anhSanPham.link}}" th:text="${anhSanPham.link}"></a>
+        </td>
+        <td th:text="${anhSanPham.trangThai == 1 ? 'Active' : 'Inactive'}"></td>
+        <td>
+            <a th:href="@{'/SanPham/AnhSanPhams/detail/' + ${anhSanPham.id}}">Chi Tiết</a> |
+            <a th:href="@{'/SanPham/AnhSanPhams/remove/' + ${anhSanPham.id}}">Xóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

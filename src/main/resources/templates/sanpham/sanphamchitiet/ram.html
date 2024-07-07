@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of RAM Items</title>
+</head>
+<body>
+<h1>List of RAM Items</h1>
+
+<!-- Form for adding/editing RAM items -->
+<form th:object="${ram}" th:action="@{/SanPham/Rams/add}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <label for="maRam">RAM Code:</label>
+    <input type="text" id="maRam" th:field="*{maRam}" required>
+    <br/>
+    <label for="dungLuong">Capacity:</label>
+    <input type="number" id="dungLuong" th:field="*{dungLuong}" required>
+    <br/>
+    <button type="submit">Add/Update</button>
+</form>
+
+<!-- Display list of RAM items -->
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>RAM Code</th>
+        <th>Capacity</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ram : ${rams}">
+        <td th:text="${ram.id}"></td>
+        <td th:text="${ram.maRam}"></td>
+        <td th:text="${ram.dungLuong}"></td>
+        <td th:text="${ram.trangThai}"></td>
+        <td>
+            <a th:href="@{/SanPham/Rams/edit/{id}(id=${ram.id})}">Edit</a> |
+            <a th:href="@{/SanPham/Rams/delete/{id}(id=${ram.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

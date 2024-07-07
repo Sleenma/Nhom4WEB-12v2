@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>IMEI Form</title>
+</head>
+<body>
+<h1>IMEI Form</h1>
+
+
+<form  th:action="@{/SanPham/Imeis/add}" method="post">
+<!--    <input type="hidden" na />-->
+    IMEI Code: <input type="text" name="maImei" /><br/>
+    Name: <input type="text" name="tenImei" /><br/>
+    Description: <input type="text"  name="moTa"/><br/>
+    Status: <input type="number" name="trangThai" /><br/>
+    <button type="submit">Save</button>
+</form>
+<h1>List of IMEIs</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>IMEI Code</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="imei : ${imeis}">
+        <td th:text="${imei.id}"></td>
+        <td th:text="${imei.maImei}"></td>
+        <td th:text="${imei.tenImei}"></td>
+        <td th:text="${imei.moTa}"></td>
+        <td th:text="${imei.trangThai}"></td>
+        <td>
+            <a th:href="@{/SanPham/Imeis/edit/{id}(id=${imei.id})}">Edit</a> |
+            <a th:href="@{/SanPham/Imeis/delete/{id}(id=${imei.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

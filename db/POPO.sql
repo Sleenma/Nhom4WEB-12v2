@@ -1,0 +1,7 @@
+CREATE DATABASE POPO
+GO
+
+USE POPO
+GO
+
+SELECT * FROM dot_giam_gia
