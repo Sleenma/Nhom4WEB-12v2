@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Hoa Don</title>
+    <!-- Add CSS files -->
+    <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Thêm Hóa Đơn</h2>
+    <form th:action="@{/hoa-don/add}" method="post">
+        <p>Ma: <input name="ma"></p>
+        <p>Hành Động:
+            <select name="hanhDong">
+                <option selected disabled>Chọn hành động</option>
+                <option value="1">Tạo mới</option>
+                <option value="0">Sửa hóa đơn</option>
+            </select>
+        </p>
+        <p>Trạng Thái:
+            <select name="trangThai">
+                <option selected disabled>Chọn trạng thái</option>
+                <option value="1">Đang chờ xử lý</option>
+                <option value="0">Đã thanh toán</option>
+            </select>
+        </p>
+        <p>Ghi Chú: <input name="ghiChu"></p>
+        <p>Loại Hóa Đơn:
+            <select name="loaiHoaDon">
+                <option selected disabled>Chọn loại hóa đơn</option>
+                <option value="1">Tại quầy</option>
+                <option value="0">Mua online</option>
+            </select>
+        </p>
+        <p>Tổng Sản Phẩm: <input name="tongSanPham"></p>
+        <p>Tổng Tiền: <input name="tongTien"></p>
+        <p>Tên Người Nhận: <input name="tenNguoiNhan"></p>
+        <p>Số Điện Thoại: <input name="soDienThoai"></p>
+        <p>Địa Chỉ: <input name="diaChi"></p>
+        <p>Ngày Nhận: <input type="datetime-local" name="ngayNhan"></p>
+        <p>Ngày Thanh Toán: <input type="datetime-local" name="ngayThanhToan"></p>
+        <p>Ngày Tạo: <input type="datetime-local" name="ngayTao"></p>
+        <p>Ngày Sửa: <input type="datetime-local" name="ngaySua"></p>
+        <p>Người Tạo: <input name="nguoiTao"></p>
+        <p>Người Sửa: <input name="nguoiSua"></p>
+        <p>Deleted: <input name="deleted"></p>
+
+        <button type="submit" class="btn btn-primary mt-3">Thêm Hóa Đơn</button>
+    </form>
+</div>
+<!-- Add JS files -->
+<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
