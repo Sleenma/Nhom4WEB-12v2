@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -73,16 +74,16 @@ public class HoaDon {
     private String diaChi;
 
     @Column(name = "ngay_thanh_toan")
-    private Date ngayThanhToan;
+    private LocalDateTime ngayThanhToan;
 
     @Column(name = "ngay_tao")
-    private Date ngayTao;
+    private LocalDateTime ngayTao;
 
     @Column(name = "ngay_sua")
-    private Date ngaySua;
+    private LocalDateTime ngaySua;
 
     @Column(name = "ngay_nhan")
-    private Date ngayNhan;
+    private LocalDateTime ngayNhan;
 
     @Column(name = "nguoi_tao")
     private String nguoiTao;

@@ -33,8 +33,9 @@ public class LichSuHoaDon {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "id_hoa_don")
-    private UUID idHoaDon;
+    @ManyToOne
+    @JoinColumn(name = "id_hoa_don", referencedColumnName = "id")
+    private HoaDon hoaDon;
 
     @Column(name = "mo_ta")
     private String moTa;
