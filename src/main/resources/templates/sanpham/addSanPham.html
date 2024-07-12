@@ -8,6 +8,9 @@
     <title>PoPo</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- Favicons -->
     <link rel="icon" th:href="@{/assets/img/favicon.png}" type="image/png">
@@ -17,6 +20,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i}"
           rel="stylesheet">
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css}" rel="stylesheet"/>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js}"></script>
 
     <!-- Vendor CSS Files -->
     <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -277,7 +282,8 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Quản lý sản phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-menu-button-wide"></i><span>Quản lý sản phẩm</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
@@ -463,72 +469,145 @@
 </aside><!-- End Sidebar-->
 
 <main id="main" class="main">
-    <h2>Hang Management</h2>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <img src="https://img.icons8.com/?size=25&id=TNTpW1UDsN87&format=png&color=000000" alt="Icon">
-    </button>
+    <h2 class="text-center">Thêm Sản Phẩm</h2>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="card container">
+        <div class="card-body">
+            <!-- Multi Columns Form -->
+            <form class="row g-3" th:object="${sanPham}" th:action="@{/SanPham/SanPhams/save}" method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{maSanPham}"/>
+
+                <div class="col-md-12">
+                    <label for="tenSanPham" class="form-label">Tên sản phẩm</label>
+                    <select id="tenSanPham" name="tenSanPham" class="form-control js-example-tags">
+                        <option selected="selected">Tên sản phẩm</option>
+                        <option th:each="sanPham : ${sanPhams}" th:value="${sanPham.tenSanPham}"
+                                th:text="${sanPham.tenSanPham}"></option>
+                    </select>
+<!--                    <label for="tenSanPham" class="form-label">Tên sản phẩm</label>-->
+<!--                    <select id="tenSanPham" class="form-control" name="tenSanPham" multiple="multiple">-->
+<!--                        <option th:each="sanPham : ${sanPhams}" th:value="${sanPham.tenSanPham}"-->
+<!--                                th:text="${sanPham.tenSanPham}"></option>-->
+<!--                    </select>-->
+<!--                    -->
+<!--                    <select id="tenSanPham" class="form-control" multiple="multiple" name="tenSanPham">-->
+<!--                        &lt;!&ndash; Thymeleaf iteration to populate options &ndash;&gt;-->
+<!--                        <option th:each="sanPham : ${sanPhams}" th:value="${sanPham.tenSanPham}"-->
+<!--                                th:text="${sanPham.tenSanPham}"></option>-->
+<!--                    </select>-->
                 </div>
-                <div class="modal-body">
-                    <form th:object="${hang}" th:action="@{/SanPham/Hangs/save}" method="post">
-                        <input type="hidden" th:field="*{id}"/>
-                        <input type="hidden" th:field="*{maHang}"/>
-                        <div class="form-group">
-                            <label for="tenHang">Tên:</label>
-                            <input type="text" class="form-control" id="tenHang" th:field="*{tenHang}" placeholder="Nhập tên hãng">
-                        </div>
-                        <div class="form-group">
-                            <label for="trangThai">Trạng thái:</label>
-                            <select class="form-control" id="trangThai" th:field="*{trangThai}">
-                                <option value="0">Hoạt động</option>
-                                <option value="1">Không hoạt động</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
+
+                <div class="col-md-12">
+                    <label for="moTa" class="form-label">Mô tả</label>
+                    <textarea class="form-control" id="moTa" rows="3" th:field="*{moTa}"></textarea>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                <div class="col-md-4">
+                    <label for="danhMuc" class="form-label">Danh mục</label>
+                    <select class="form-select" id="danhMuc" th:field="*{danhMuc.id}">
+                        <option th:each="danhMuc : ${danhMucList}" th:value="${danhMuc.id}"
+                                th:text="${danhMuc.tenDanhMuc}">Chọn danh mục
+                        </option>
+                    </select>
                 </div>
-            </div>
+
+                <div class="col-md-4">
+                    <label for="hang" class="form-label">Hãng</label>
+                    <select class="form-select" id="hang" th:field="*{hang.id}">
+                        <option th:each="hang : ${hangList}" th:value="${hang.id}" th:text="${hang.tenHang}">Chọn hãng
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="chip" class="form-label">Chip</label>
+                    <select class="form-select" id="chip" th:field="*{chip.id}">
+                        <option th:each="chip : ${chipList}" th:value="${chip.id}" th:text="${chip.TenChip}">Chọn chip
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="heDieuHanh" class="form-label">Hệ điều hành</label>
+                    <select class="form-select" id="heDieuHanh" th:field="*{heDieuHanh.id}">
+                        <option th:each="heDieuHanh : ${heDieuHanhList}" th:value="${heDieuHanh.id}"
+                                th:text="${heDieuHanh.tenHeDieuHanh}">Chọn hệ điều hành
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="loaiSac" class="form-label">Loại Sạc</label>
+                    <select class="form-select" id="loaiSac" th:field="*{loaiSac.id}">
+                        <option th:each="loaiSac : ${loaiSacList}" th:value="${loaiSac.id}"
+                                th:text="${loaiSac.tenLoaiSac}">Chọn loại sạc
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="theNho" class="form-label">Thẻ nhớ</label>
+                    <select class="form-select" id="theNho" th:field="*{theNho.id}">
+                        <option th:each="theNho : ${theNhoList}" th:value="${theNho.id}" th:text="${theNho.tenTheNho}">
+                            Chọn thẻ nhớ
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="cameraTruoc" class="form-label">Camera trước</label>
+                    <select class="form-select" id="cameraTruoc" th:field="*{cameraTruoc.id}">
+                        <option th:each="cameraTruoc : ${cameraTruocList}" th:value="${cameraTruoc.id}"
+                                th:text="${cameraTruoc.tenCameraTruoc}">Chọn camera trước
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="cameraSau" class="form-label">Camera sau</label>
+                    <select class="form-select" id="cameraSau" th:field="*{cameraSau.id}">
+                        <option th:each="cameraSau : ${cameraSauList}" th:value="${cameraSau.id}"
+                                th:text="${cameraSau.tenCameraSau}">Chọn camera sau
+                        </option>
+                    </select>
+<!--                    <select id="test" class="form-select">-->
+<!--                        <option value="1">American Black Bear</option>-->
+<!--                        <option value="2">Asiatic Black Bear</option>-->
+<!--                        <option value="3">Brown Bear</option>-->
+<!--                        <option value="4">Giant Panda</option>-->
+<!--                        <option value="5">Sloth Bear</option>-->
+<!--                        <option value="6">Sun Bear</option>-->
+<!--                        <option value="7">Polar Bear</option>-->
+<!--                        <option value="8">Spectacled Bear</option>-->
+<!--                    </select>-->
+                </div>
+
+                <div class="col-md-6">
+                    <label for="doPhanGiai" class="form-label">Độ phân giải</label>
+                    <select class="form-select" id="doPhanGiai" th:field="*{doPhanGiai.id}">
+                        <option th:each="doPhanGiai : ${doPhanGiaiList}" th:value="${doPhanGiai.id}"
+                                th:text="${doPhanGiai.tenDoPhanGiai}">Chọn độ phân giải
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="trangThai">Trạng thái:</label>
+                    <select class="form-control" id="trangThai" th:field="*{trangThai}">
+                        <option value="0">Kinh doanh</option>
+                        <option value="1">Không kinh doanh</option>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+            </form><!-- End Multi Columns Form -->
         </div>
     </div>
-    <!-- Form to add or edit Hang -->
 
-
-    <hr/>
-
-    <!-- List of Hangs -->
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th>STT</th>
-            <th>Tên</th>
-            <th>Trạng thái</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="hang, stat : ${hangs}">
-            <td th:text="${stat.count}"></td>
-            <td th:text="${hang.tenHang}"></td>
-            <td th:text="${hang.trangThai == 0 ? 'Hoạt động' : 'Không hoạt động'}"></td>
-            <td>
-                <a th:href="@{/SanPham/Hangs/edit/{id}(id=${hang.id})}" class="btn btn-warning">Edit</a>
-                <a th:href="@{/SanPham/Hangs/delete/{id}(id=${hang.id})}" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 
 </main><!-- End #main -->
 
@@ -546,7 +625,105 @@
 
 
 </body>
+<script>
+    $(".js-example-tags").select2({
+        tags: true
+    });
+    $(document).ready(function () {
+        $("#    ").CreateMultiCheckBox({
+            defaultText : 'Select Below' });
+    });
+    $(document).ready(function () {
+        $(document).on("click", ".MultiCheckBox", function () {
+            var detail = $(this).next();
+            detail.show();
+        });
 
+        $(document).on("click", ".MultiCheckBoxDetailHeader input", function (e) {
+            e.stopPropagation();
+            var hc = $(this).prop("checked");
+            $(this).closest(".MultiCheckBoxDetail").find(".MultiCheckBoxDetailBody input").prop("checked", hc);
+            $(this).closest(".MultiCheckBoxDetail").next().UpdateSelect();
+        });
+
+        $(document).on("click", ".MultiCheckBoxDetailHeader", function (e) {
+            var inp = $(this).find("input");
+            var chk = inp.prop("checked");
+            inp.prop("checked", !chk);
+            $(this).closest(".MultiCheckBoxDetail").find(".MultiCheckBoxDetailBody input").prop("checked", !chk);
+            $(this).closest(".MultiCheckBoxDetail").next().UpdateSelect();
+        });
+
+        $(document).on("click", ".MultiCheckBoxDetail .cont input", function (e) {
+            e.stopPropagation();
+            $(this).closest(".MultiCheckBoxDetail").next().UpdateSelect();
+
+            var val = ($(".MultiCheckBoxDetailBody input:checked").length == $(".MultiCheckBoxDetailBody input").length)
+            $(".MultiCheckBoxDetailHeader input").prop("checked", val);
+        });
+
+        $(document).on("click", ".MultiCheckBoxDetail .cont", function (e) {
+            var inp = $(this).find("input");
+            var chk = inp.prop("checked");
+            inp.prop("checked", !chk);
+
+            var multiCheckBoxDetail = $(this).closest(".MultiCheckBoxDetail");
+            var multiCheckBoxDetailBody = $(this).closest(".MultiCheckBoxDetailBody");
+            multiCheckBoxDetail.next().UpdateSelect();
+
+            var val = ($(".MultiCheckBoxDetailBody input:checked").length == $(".MultiCheckBoxDetailBody input").length)
+            $(".MultiCheckBoxDetailHeader input").prop("checked", val);
+        });
+
+        $(document).mouseup(function (e) {
+            var container = $(".MultiCheckBoxDetail");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                container.hide();
+            }
+        });
+    });
+
+    var defaultMultiCheckBoxOption = { width: '220px', defaultText: 'Select Below', height: '200px' };
+
+    jQuery.fn.extend({
+        CreateMultiCheckBox: function (options) {
+
+            var localOption = {};
+            localOption.width = (options != null && options.width != null && options.width != undefined) ? options.width : defaultMultiCheckBoxOption.width;
+            localOption.defaultText = (options != null && options.defaultText != null && options.defaultText != undefined) ? options.defaultText : defaultMultiCheckBoxOption.defaultText;
+            localOption.height = (options != null && options.height != null && options.height != undefined) ? options.height : defaultMultiCheckBoxOption.height;
+
+            this.hide();
+            this.attr("multiple", "multiple");
+            var divSel = $("<div class='MultiCheckBox'>" + localOption.defaultText + "<span class='k-icon k-i-arrow-60-down'><svg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='sort-down' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512' class='svg-inline--fa fa-sort-down fa-w-10 fa-2x'><path fill='currentColor' d='M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z' class=''></path></svg></span></div>").insertBefore(this);
+            divSel.css({ "width": localOption.width });
+
+            var detail = $("<div class='MultiCheckBoxDetail'><div class='MultiCheckBoxDetailHeader'><input type='checkbox' class='mulinput' value='-1982' /><div>Select All</div></div><div class='MultiCheckBoxDetailBody'></div></div>").insertAfter(divSel);
+            detail.css({ "width": parseInt(options.width) + 10, "max-height": localOption.height });
+            var multiCheckBoxDetailBody = detail.find(".MultiCheckBoxDetailBody");
+
+            this.find("option").each(function () {
+                var val = $(this).attr("value");
+
+                if (val == undefined)
+                    val = '';
+
+                multiCheckBoxDetailBody.append("<div class='cont'><div><input type='checkbox' class='mulinput' value='" + val + "' /></div><div>" + $(this).text() + "</div></div>");
+            });
+
+            multiCheckBoxDetailBody.css("max-height", (parseInt($(".MultiCheckBoxDetail").css("max-height")) - 28) + "px");
+        },
+        UpdateSelect: function () {
+            var arr = [];
+
+            this.prev().find(".mulinput:checked").each(function () {
+                arr.push($(this).val());
+            });
+
+            this.val(arr);
+        },
+    });
+</script>
 
 <!-- Vendor JS Files -->
 <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>

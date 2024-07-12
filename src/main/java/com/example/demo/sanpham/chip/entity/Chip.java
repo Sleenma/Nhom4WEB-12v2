@@ -1,4 +1,4 @@
-package com.example.demo.sanpham.Chip.entity;
+package com.example.demo.sanpham.chip.entity;
 
 
 import jakarta.persistence.Column;

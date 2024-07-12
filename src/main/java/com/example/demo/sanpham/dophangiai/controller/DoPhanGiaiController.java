@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,33 +24,30 @@ public class DoPhanGiaiController {
     private DoPhanGiaiRepository doPhanGiaiRepository;
 
     @GetMapping
-    public String hienThi(Model model){
-        model.addAttribute("DoPhanGiai",doPhanGiaiRepository.findAll());
+    public String listDoPhanGiai(Model model) {
+        model.addAttribute("doPhanGiais", doPhanGiaiRepository.findAll());
+        model.addAttribute("doPhanGiai", new DoPhanGiai()); // for form binding
         return "sanpham/dophangiai";
     }
 
-    @PostMapping("/Add")
-    public String add(DoPhanGiai doPhanGiai) {
+    @PostMapping("/save")
+    public String saveOrUpdate(@ModelAttribute("doPhanGiai") DoPhanGiai doPhanGiai) {
         doPhanGiaiRepository.save(doPhanGiai);
         return "redirect:/SanPham/DoPhanGiais";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") UUID id, Model model) {
-        Optional<DoPhanGiai> optionalCameraSau = doPhanGiaiRepository.findById(id);
-        if (optionalCameraSau.isPresent()) {
-            model.addAttribute("DoPhanGiai1", optionalCameraSau.get());
-            model.addAttribute("DoPhanGiai", doPhanGiaiRepository.findAll());
-            return "sanpham/dophangiai";
-        } else {
-            return "redirect:/SanPham/DoPhanGiais";
-        }
+    @GetMapping("/edit/{id}")
+    public String editDoPhanGiai(@PathVariable("id") UUID id, Model model) {
+        Optional<DoPhanGiai> optionalDoPhanGiai = doPhanGiaiRepository.findById(id);
+        optionalDoPhanGiai.ifPresent(doPhanGiai -> model.addAttribute("doPhanGiai", doPhanGiai));
+        model.addAttribute("doPhanGiais", doPhanGiaiRepository.findAll());
+        return "sanpham/dophangiai";
     }
 
-
-    @GetMapping("/remove/{id}")
-    public String remove(@PathVariable("id") UUID id) {
+    @GetMapping("/delete/{id}")
+    public String deleteDoPhanGiai(@PathVariable("id") UUID id) {
         doPhanGiaiRepository.deleteById(id);
         return "redirect:/SanPham/DoPhanGiais";
     }
+
 }
