@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -29,13 +30,21 @@ public class HoaDonController {
     private String hienThi(Model model,
                            @RequestParam(name = "page", defaultValue = "0") Integer page,
                            @RequestParam(name = "keyword", defaultValue = "") String keyword) {
-        model.addAttribute("keyword", keyword);
 
+        Pageable pageable = PageRequest.of(page, 5);
         String keyword1 = "%" + keyword + "%";
-        Pageable pageable = PageRequest.of(page, 10);
-        model.addAttribute("listHoaDon", hoaDonRepository.search(keyword1, keyword1, keyword1, pageable));
+
+        model.addAttribute("listHoaDon", hoaDonRepository.search(keyword, keyword, keyword, pageable));
+        model.addAttribute("keyword1", keyword1);
         return "hoadon/viewhoadon/views";
     }
+
+    // Phương thức xử lý xuất Excel
+    @PostMapping("export-excel")
+    private void exportExcel() {
+        // Xử lý xuất Excel ở đây
+    }
+
 
     @GetMapping("view-add")
     private String viewadd() {
