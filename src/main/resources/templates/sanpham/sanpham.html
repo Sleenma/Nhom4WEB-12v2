@@ -29,9 +29,21 @@
 
     <!-- Template Main CSS File -->
     <link th:href="@{/assets/css/style.css}" rel="stylesheet">
-
-
+    <!--    <link th:href="@{/https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css}" rel="stylesheet"/>-->
+    <!-- Icons   -->
+    <link rel="stylesheet"
+          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css}"/>
 </head>
+<style>
+    /* Custom CSS for select element */
+    .danh {
+        background-color: #fff; /* White background */
+        border: 1px solid #fff; /* White border */
+        color: #333; /* Optional: Set text color */
+        font-size: 12px;
+    }
+
+</style>
 
 <body>
 <!-- ======= Header ======= -->
@@ -277,7 +289,8 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Quản lý sản phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-menu-button-wide"></i><span>Quản lý sản phẩm</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
@@ -462,90 +475,243 @@
 
 </aside><!-- End Sidebar-->
 
-<main id="main" class="main">
-    <h2>Hang Management</h2>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <img src="https://img.icons8.com/?size=25&id=TNTpW1UDsN87&format=png&color=000000" alt="Icon">
-    </button>
+<main id="main" class="main" style="background: white">
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form th:object="${hang}" th:action="@{/SanPham/Hangs/save}" method="post">
-                        <input type="hidden" th:field="*{id}"/>
-                        <input type="hidden" th:field="*{maHang}"/>
-                        <div class="form-group">
-                            <label for="tenHang">Tên:</label>
-                            <input type="text" class="form-control" id="tenHang" th:field="*{tenHang}" placeholder="Nhập tên hãng">
-                        </div>
-                        <div class="form-group">
-                            <label for="trangThai">Trạng thái:</label>
-                            <select class="form-control" id="trangThai" th:field="*{trangThai}">
-                                <option value="0">Hoạt động</option>
-                                <option value="1">Không hoạt động</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+    <div class="row g-3">
+        <div class="col-md-4 ">
+            <form th:action="@{/SanPham/SanPhams}" th:method="get">
+                <input type="text" th:name="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm theo Mã, tên "
+                       aria-label="Tìm kiếm" aria-describedby="basic-addon1">
+            </form>
+
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-warning">
+                <a th:href="@{/SanPham/SanPhams}">Làm mới</a>
+            </button>
+        </div>
+
+    </div>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col">
+
+                <select  class="form-select danh">
+                    <option selected>Chọn Danh Mục</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+            <div class="col">
+
+                <select id="hang" class="form-select danh">
+                    <option selected>Apple</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+            <div class="col">
+
+                <select id="heDieuHanh" class="form-select danh ">
+                    <option selected>Chọn Hệ Điều Hành</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+            <div class="col">
+
+                <select id="chip" class="form-select danh">
+                    <option selected>Chọn Chip</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+            <div class="col">
+
+                <select id="pin" class="form-select danh">
+                    <option selected>Chọn Pin</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+        </div>
+        <div class="row mt-3 d-flex justify-content-center  ">
+            <div class="col-2">
+
+                <select id="manHinh" class="form-select danh">
+                    <option selected>Chọn Màn Hình</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+            <div class="col-2">
+
+                <select id="trangThai" class="form-select danh">
+                    <option selected>Chọn Trạng thái</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+            <div class="col-2">
+
+                <select id="sapXep" class="form-select danh">
+                    <option selected>Mới</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+            <div class="col-2">
+
+                <select id="hienThi" class="form-select danh">
+                    <option selected>10/Pages</option>
+                    <!-- Add more options here -->
+                </select>
             </div>
         </div>
     </div>
-    <!-- Form to add or edit Hang -->
+    <a th:href="@{/SanPham/SanPhams/viewAdd}" class="btn btn-outline-success  float-end mb-3">
+        <i class="icon-class-name"> <!-- Replace 'icon-class-name' with the class for your Icons8 icon -->
+            <!-- You can use an image tag to display the icon -->
+            <img src="https://img.icons8.com/?size=25&id=TNTpW1UDsN87&format=png&color=000000" alt="Icon">
+        </i>
+    </a>
 
-
-    <hr/>
-
-    <!-- List of Hangs -->
-    <table class="table">
+    <table class="table pt-3">
         <thead class="thead-dark">
         <tr>
             <th>STT</th>
-            <th>Tên</th>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Hãng</th>
+            <th>Số lượng</th>
             <th>Trạng thái</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="hang, stat : ${hangs}">
+        <tr th:each="sanPham, stat : ${sanPhams.content}">
             <td th:text="${stat.count}"></td>
-            <td th:text="${hang.tenHang}"></td>
-            <td th:text="${hang.trangThai == 0 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+            <td th:text="${sanPham.maSanPham}"></td>
+            <td th:text="${sanPham.tenSanPham}"></td>
+            <td th:text="${sanPham.hang.tenHang}"></td>
+            <td></td>
             <td>
-                <a th:href="@{/SanPham/Hangs/edit/{id}(id=${hang.id})}" class="btn btn-warning">Edit</a>
-                <a th:href="@{/SanPham/Hangs/delete/{id}(id=${hang.id})}" class="btn btn-danger">Delete</a>
+                        <span th:text="${sanPham.trangThai == 0 ? 'Kinh doanh' : 'Không kinh doanh'}"
+                              th:class="${sanPham.trangThai == 0 ? 'badge bg-success' : 'badge bg-secondary'}"></span>
+            </td>
+            <td>
+                <a th:href="@{/SanPham/SanPhams/edit/{id}(id=${sanPham.id})}" class="btn">
+                    <i class="icon-class-name">
+                        <img src="https://img.icons8.com/?size=25&id=71201&format=png&color=000000" alt="">
+                    </i>
+
+
+                </a>
+                <a th:href="@{/SanPham/SanPhams/delete/{id}(id=${sanPham.id})}" class="btn">
+                    <i class="icon-class-name">
+                        <img src="https://img.icons8.com/?size=25&id=OTqHRsz9MuVp&format=png&color=000000" alt="">
+                    </i>
+
+
+                </a>
+                <!--                <a th:href="@{/SanPham/SanPhams/delete/{id}(id=${sanPham.id})}" class="btn btn-danger">-->
+                <!--                    <i class="icon-class-name">-->
+                <!--                        <img src="https://img.icons8.com/?size=25&id=OTqHRsz9MuVp&format=png&color=000000" alt=""/>-->
+                <!--                </a>-->
             </td>
         </tr>
         </tbody>
     </table>
+    <!-- Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Mã sản phẩm:</strong> <span id="productCode"></span></p>
+                    <p><strong>Tên sản phẩm:</strong> <span id="productName"></span></p>
+                    <p><strong>Hãng:</strong> <span id="productBrand"></span></p>
+                    <p><strong>Số lượng:</strong> <span id="productQuantity"></span></p>
+                    <p><strong>Trạng thái:</strong> <span id="productStatus"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${sanPhams.first ? 'disabled' : ''}">
+                <a class="page-link"
+                   th:href="@{/SanPham/SanPhams(keyword=${keyword}, page=${sanPhams.number - 1})}"
+                   aria-disabled="${sanPhams.first}">Đầu</a>
+            </li>
+
+            <th:block th:each="page, iterStat : ${#numbers.sequence(0, sanPhams.totalPages - 1)}">
+                <li class="page-item"
+                    th:classappend="${sanPhams.number == page ? 'active' : ''}">
+
+                    <a class="page-link"
+                       th:href="@{/SanPham/SanPhams(keyword=${keyword}, page=${page})}" th:text="${page + 1}"></a>
+                </li>
+
+                <!-- Insert ellipsis if necessary -->
+                <th:block th:if="${iterStat.index == 2 && sanPhams.number > 3}">
+                    <li class="page-item"><span class="page-link">...</span></li>
+                </th:block>
+
+                <th:block
+                        th:if="${iterStat.index == sanPhams.totalPages - 3 && sanPhams.totalPages > 5 && page < sanPhams.totalPages - 1}">
+                    <li class="page-item"><span class="page-link">...</span></li>
+                </th:block>
+            </th:block>
+
+            <li class="page-item" th:classappend="${sanPhams.last ? 'disabled' : ''}">
+                <a class="page-link"
+                   th:href="@{/SanPham/SanPhams(keyword=${keyword}, page=${sanPhams.number + 1})}"
+                   aria-disabled="${sanPhams.last}">Cuối</a>
+            </li>
+        </ul>
+    </nav>
+
 
 </main><!-- End #main -->
 
 
-<!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
-    <div class="copyright">
-        &copy; Copyright <strong><span>PoPo</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
+<!--&lt;!&ndash; ======= Footer ======= &ndash;&gt;-->
+<!--<footer id="footer" class="footer">-->
+<!--    <div class="copyright">-->
+<!--        &copy; Copyright <strong><span>PoPo</span></strong>. All Rights Reserved-->
+<!--    </div>-->
+<!--    <div class="credits">-->
 
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-</footer><!-- End Footer -->
+<!--        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
+<!--    </div>-->
+<!--</footer>&lt;!&ndash; End Footer &ndash;&gt;-->
 
 
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const rows = document.querySelectorAll('table tbody tr');
+
+        rows.forEach(row => {
+            row.addEventListener('click', function () {
+                const productCode = row.querySelector('td:nth-child(2)').innerText;
+                const productName = row.querySelector('td:nth-child(3)').innerText;
+                const productBrand = row.querySelector('td:nth-child(4)').innerText;
+                const productQuantity = row.querySelector('td:nth-child(5)').innerText;
+                const productStatus = row.querySelector('td:nth-child(6)').innerText;
+
+                document.getElementById('productCode').innerText = productCode;
+                document.getElementById('productName').innerText = productName;
+                document.getElementById('productBrand').innerText = productBrand;
+                document.getElementById('productQuantity').innerText = productQuantity;
+                document.getElementById('productStatus').innerText = productStatus;
+
+                const modal = new bootstrap.Modal(document.getElementById('productModal'));
+                modal.show();
+            });
+        });
+    });
+</script>
 
 
 <!-- Vendor JS Files -->

@@ -1,325 +1,544 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- VENDOR CSS -->
-    <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/vendor/font-awesome/css/font-awesome.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/vendor/linearicons/style.css}">
-    <link rel="stylesheet" th:href="@{/assets/vendor/chartist/css/chartist-custom.css}">
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/main.css}">
-    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" th:href="@{/assets/css/demo.css}">
-    <!-- GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-    <!-- ICONS -->
-    <link rel="apple-touch-icon" sizes="76x76" th:href="@{/assets/img/apple-icon.png}">
-    <link rel="icon" type="image/png" sizes="96x96" th:href="@{/assets/img/favicon.png}">
-    <!-- AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://code.angularjs.org/1.8.2/angular-route.js"></script>
-    <title>Document</title>
-</head>
-<body>
-<!-- WRAPPER -->
-<div id="wrapper">
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="brand">
-            <!-- <a href="index.html"><img src="assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a> -->
-            PoPo
-        </div>
-        <div class="container-fluid">
-            <div class="navbar-btn">
-                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
-            </div>
-            <form class="navbar-form navbar-left">
-                <div class="input-group">
-                    <input type="text" value="" class="form-control" placeholder="Search dashboard...">
-                    <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
-                </div>
-            </form>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-            <div id="navbar-menu">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-                            <i class="lnr lnr-alarm"></i>
-                            <span class="badge bg-danger">5</span>
-                        </a>
-                        <ul class="dropdown-menu notifications">
-                            <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space
-                                is almost full</a></li>
-                            <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9
-                                unfinished tasks</a></li>
-                            <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report
-                                is available</a></li>
-                            <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting
-                                in 1 hour</a></li>
-                            <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request
-                                has been approved</a></li>
-                            <li><a href="#" class="more">See all notifications</a></li>
-                        </ul>
+    <title>PoPo</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link rel="icon" th:href="@{/assets/img/favicon.png}" type="image/png">
+    <link rel="apple-touch-icon" th:href="@{/assets/img/apple-touch-icon.png}" type="image/png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i}"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+    <link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet">
+
+
+</head>
+
+<body>
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/logo.png" alt="">
+            <span class="d-none d-lg-block">PoPo</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle " href="#">
+                    <i class="bi bi-search"></i>
+                </a>
+            </li><!-- End Search Icon-->
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-bell"></i>
+                    <span class="badge bg-primary badge-number">4</span>
+                </a><!-- End Notification Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                    <li class="dropdown-header">
+                        You have 4 new notifications
+                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                class="lnr lnr-question-circle"></i> <span>Help</span> <i
-                                class="icon-submenu lnr lnr-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Basic Use</a></li>
-                            <li><a href="#">Working With Data</a></li>
-                            <li><a href="#">Security</a></li>
-                            <li><a href="#">Troubleshooting</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png"
-                                                                                        class="img-circle" alt="Avatar">
-                            <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-                            <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-                            <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-                            <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-                        </ul>
-                    </li>
-                    <!-- <li>
-                        <a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-                    </li> -->
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- END NAVBAR -->
-    <!-- LEFT SIDEBAR -->
-    <div id="sidebar-nav" class="sidebar">
-        <div class="sidebar-scroll">
-            <nav>
-                <ul class="nav">
-                    <li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Thông Kê</span></a></li>
-                    <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Bán hàng</span></a></li>
                     <li>
-                        <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i>
-                            <span>Quản lý sản phẩm</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                        <div id="subPages" class="collapse ">
-                            <ul class="nav">
-                                <li><a href="page-profile.html" class="">Profile</a></li>
-                                <li><a href="page-login.html" class="">Login</a></li>
-                                <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
-                            </ul>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-exclamation-circle text-warning"></i>
+                        <div>
+                            <h4>Lorem Ipsum</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>30 min. ago</p>
                         </div>
                     </li>
-                    <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Quản lý khách hàng</span></a>
+
+                    <li>
+                        <hr class="dropdown-divider">
                     </li>
-                    <li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i>
-                        <span>Quản lý nhân viên</span></a></li>
 
-                </ul>
-            </nav>
+                    <li class="notification-item">
+                        <i class="bi bi-x-circle text-danger"></i>
+                        <div>
+                            <h4>Atque rerum nesciunt</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>1 hr. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <div>
+                            <h4>Sit rerum fuga</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>2 hrs. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="notification-item">
+                        <i class="bi bi-info-circle text-primary"></i>
+                        <div>
+                            <h4>Dicta reprehenderit</h4>
+                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <p>4 hrs. ago</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li class="dropdown-footer">
+                        <a href="#">Show all notifications</a>
+                    </li>
+
+                </ul><!-- End Notification Dropdown Items -->
+
+            </li><!-- End Notification Nav -->
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-chat-left-text"></i>
+                    <span class="badge bg-success badge-number">3</span>
+                </a><!-- End Messages Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                    <li class="dropdown-header">
+                        You have 3 new messages
+                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="message-item">
+                        <a href="#">
+                            <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                            <div>
+                                <h4>Maria Hudson</h4>
+                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                <p>4 hrs. ago</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="message-item">
+                        <a href="#">
+                            <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                            <div>
+                                <h4>Anna Nelson</h4>
+                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                <p>6 hrs. ago</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="message-item">
+                        <a href="#">
+                            <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                            <div>
+                                <h4>David Muldon</h4>
+                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                <p>8 hrs. ago</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li class="dropdown-footer">
+                        <a href="#">Show all messages</a>
+                    </li>
+
+                </ul><!-- End Messages Dropdown Items -->
+
+            </li><!-- End Messages Nav -->
+
+            <li class="nav-item dropdown pe-3">
+
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img th:src="@{/assets/img/profile-img.jpg}" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                </a><!-- End Profile Iamge Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                        <h6>Kevin Anderson</h6>
+                        <span>Web Designer</span>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <i class="bi bi-person"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <i class="bi bi-gear"></i>
+                            <span>Account Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                            <i class="bi bi-question-circle"></i>
+                            <span>Need Help?</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </li>
+
+                </ul><!-- End Profile Dropdown Items -->
+            </li><!-- End Profile Nav -->
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link" href="#!/Dashboard">
+                <i class="bi bi-grid"></i>
+                <span>Bán hàng</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Quản lý sản phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/SanPham/SanPhams}">
+                        <i class="bi bi-circle"></i><span>Sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/CameraSaus/list}">
+                        <i class="bi bi-circle"></i><span>Camera Sau</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/CameraTruocs}">
+                        <i class="bi bi-circle"></i><span>Camera Trước</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/Chips}">
+                        <i class="bi bi-circle"></i><span>Chip</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/DanhMucs}">
+                        <i class="bi bi-circle"></i><span>Danh mục</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/DoPhanGiais}">
+                        <i class="bi bi-circle"></i><span>Độ phân giải</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/Hangs}">
+                        <i class="bi bi-circle"></i><span>Hãng</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/HeDieuHanhs}">
+                        <i class="bi bi-circle"></i><span>Hệ điều hành</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/LoaiSacs}">
+                        <i class="bi bi-circle"></i><span>Loại Sạc</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/Pins}">
+                        <i class="bi bi-circle"></i><span>Pin</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/TheNhos}">
+                        <i class="bi bi-circle"></i><span>Thẻ nhớ</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/SanPham/AnhSanPhams}">
+                        <i class="bi bi-circle"></i><span>Ảnh sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/Imeis}">
+                        <i class="bi bi-circle"></i><span>Imei</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/MauSacs}">
+                        <i class="bi bi-circle"></i><span>Màu sắc</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/Rams}">
+                        <i class="bi bi-circle"></i><span>Ram</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/SanPham/Roms}">
+                        <i class="bi bi-circle"></i><span>Rom</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Quản lý hóa đơn</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="forms-elements.html">
+                        <i class="bi bi-circle"></i><span>Form Elements</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="forms-layouts.html">
+                        <i class="bi bi-circle"></i><span>Form Layouts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="forms-editors.html">
+                        <i class="bi bi-circle"></i><span>Form Editors</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="forms-validation.html">
+                        <i class="bi bi-circle"></i><span>Form Validation</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Forms Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Quản lý nhân viên</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="tables-general.html">
+                        <i class="bi bi-circle"></i><span>General Tables</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tables-data.html">
+                        <i class="bi bi-circle"></i><span>Data Tables</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-bar-chart"></i><span>Quản lý khách hàng</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="charts-chartjs.html">
+                        <i class="bi bi-circle"></i><span>Chart.js</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="charts-apexcharts.html">
+                        <i class="bi bi-circle"></i><span>ApexCharts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="charts-echarts.html">
+                        <i class="bi bi-circle"></i><span>ECharts</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Charts Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span>Quản lý phiếu giảm giá</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="icons-bootstrap.html">
+                        <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="icons-remix.html">
+                        <i class="bi bi-circle"></i><span>Remix Icons</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="icons-boxicons.html">
+                        <i class="bi bi-circle"></i><span>Boxicons</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Icons Nav -->
+
+
+    </ul>
+
+</aside><!-- End Sidebar-->
+
+<main id="main" class="main">
+    <h2>Quản lý Loại Sạc</h2>
+
+    <!-- Form to add or edit LoaiSac -->
+    <form th:object="${loaiSac}" th:action="@{/SanPham/LoaiSacs/save}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{maLoaiSac}"/>
+        <div class="form-group">
+            <label for="tenLoaiSac">Tên:</label>
+            <input type="text" class="form-control" id="tenLoaiSac" th:field="*{tenLoaiSac}" placeholder="Nhập tên loại sạc">
         </div>
-    </div>
-    <!-- END LEFT SIDEBAR -->
-    <!-- MAIN -->
-    <div class="main">
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <!--			<div class="container-fluid" ng-app="myApp">-->
-
-            <!--				<div ng-view> </div>-->
-            <!--				&lt;!&ndash; Code ở Đây &ndash;&gt;-->
-            <!--				-->
-            <!--			</div>-->
-
-            <div class="container-fluid" style="background: white">
-                <div>
-                    <form th:action="@{/SanPham/LoaiSacs/Add}" method="post">
-                        <input type="hidden" th:value="${lsac != null ? lsac.id : ''}" />
-                        <label for="tenLoaiSac">Tên:</label>
-                        <input id="tenLoaiSac" name="tenLoaiSac" th:value="${lsac != null ? lsac.tenLoaiSac : ''}" required />
-
-                        <br/>
-                        <button type="submit">Add</button>
-                    </form>
-
-                    <!--                    <form th:action="@{/SanPham/CameraSaus/Add}" method="post">-->
-                    <!--                        <input type="hidden" th:value="${csau.id}"/>-->
-                    <!--                        <label for="tenCameraSau">Tên:</label>-->
-                    <!--                        <input id="tenCameraSau" name="tenCameraSau" th:value="${csau.tenCameraSau}"required>-->
-                    <!--                        <br>-->
-                    <!--                        <button type="submit">add</button>-->
-                    <!--                    </form>-->
-
-                </div>
-                <table style="background: white" class="table">
-                    <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Mã  </th>
-                        <th>Tên  </th>
-                        <th>Hành động</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="LoaiSac, stat : ${LoaiSac}">
-                        <td th:text="${stat.count + 1}"></td>
-                        <td th:text="${LoaiSac.maLoaiSac}"></td>
-                        <td th:text="${LoaiSac.tenLoaiSac}"></td>
-                        <td>
-                            <a th:href="@{/SanPham/LoaiSacs/detail/{id}(id=${LoaiSac.id})}"><button type="button">Detail</button></a>
-                            <a th:href="@{/SanPham/LoaiSacs/remove/{id}(id=${LoaiSac.id})}"><button type="button">Remove</button></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="form-group">
+            <label for="trangThai">Trạng thái:</label>
+            <select class="form-control" id="trangThai" th:field="*{trangThai}">
+                <option value="0">Hoạt động</option>
+                <option value="1">Không hoạt động</option>
+            </select>
         </div>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </form>
+
+    <hr/>
+
+    <!-- List of LoaiSacs -->
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>STT</th>
+            <th>Mã</th>
+            <th>Tên</th>
+            <th>Trạng thái</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="loaiSac, stat : ${loaiSacs}">
+            <td th:text="${stat.count}"></td>
+            <td th:text="${loaiSac.maLoaiSac}"></td>
+            <td th:text="${loaiSac.tenLoaiSac}"></td>
+            <td th:text="${loaiSac.trangThai == 0 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+            <td>
+                <a th:href="@{/SanPham/LoaiSacs/edit/{id}(id=${loaiSac.id})}" class="btn btn-warning">Sửa</a>
+                <a th:href="@{/SanPham/LoaiSacs/delete/{id}(id=${loaiSac.id})}" class="btn btn-danger">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</main><!-- End #main -->
+
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+    <div class="copyright">
+        &copy; Copyright <strong><span>PoPo</span></strong>. All Rights Reserved
     </div>
-    <!-- END MAIN CONTENT -->
-</div>
-<!-- END MAIN -->
-<div class="clearfix"></div>
-<footer>
-    <div class="container-fluid">
-        <p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All
-            Rights Reserved.</p>
+    <div class="credits">
+
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
-</footer>
-</div>
-<!-- END WRAPPER -->
-<!-- Javascript -->
-<script src="assets/vendor/jquery/jquery.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-<script src="assets/vendor/chartist/js/chartist.min.js"></script>
-<script src="assets/scripts/klorofil-common.js"></script>
-<script>
-    $(function () {
-        var data, options;
-
-        // headline charts
-        data = {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            series: [
-                [23, 29, 24, 40, 25, 24, 35],
-                [14, 25, 18, 34, 29, 38, 44],
-            ]
-        };
-
-        options = {
-            height: 300,
-            showArea: true,
-            showLine: false,
-            showPoint: false,
-            fullWidth: true,
-            axisX: {
-                showGrid: false
-            },
-            lineSmooth: false,
-        };
-
-        new Chartist.Line('#headline-chart', data, options);
+</footer><!-- End Footer -->
 
 
-        // visits trend charts
-        data = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            series: [{
-                name: 'series-real',
-                data: [200, 380, 350, 320, 410, 450, 570, 400, 555, 620, 750, 900],
-            }, {
-                name: 'series-projection',
-                data: [240, 350, 360, 380, 400, 450, 480, 523, 555, 600, 700, 800],
-            }]
-        };
-
-        options = {
-            fullWidth: true,
-            lineSmooth: false,
-            height: "270px",
-            low: 0,
-            high: 'auto',
-            series: {
-                'series-projection': {
-                    showArea: true,
-                    showPoint: false,
-                    showLine: false
-                },
-            },
-            axisX: {
-                showGrid: false,
-
-            },
-            axisY: {
-                showGrid: false,
-                onlyInteger: true,
-                offset: 0,
-            },
-            chartPadding: {
-                left: 20,
-                right: 20
-            }
-        };
-
-        new Chartist.Line('#visits-trends-chart', data, options);
-
-
-        // visits chart
-        data = {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            series: [
-                [6384, 6342, 5437, 2764, 3958, 5068, 7654]
-            ]
-        };
-
-        options = {
-            height: 300,
-            axisX: {
-                showGrid: false
-            },
-        };
-
-        new Chartist.Bar('#visits-chart', data, options);
-
-
-        // real-time pie chart
-        var sysLoad = $('#system-load').easyPieChart({
-            size: 130,
-            barColor: function (percent) {
-                return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
-            },
-            trackColor: 'rgba(245, 245, 245, 0.8)',
-            scaleColor: false,
-            lineWidth: 5,
-            lineCap: "square",
-            animate: 800
-        });
-
-        var updateInterval = 3000; // in milliseconds
-
-        setInterval(function () {
-            var randomVal;
-            randomVal = getRandomInt(0, 100);
-
-            sysLoad.data('easyPieChart').update(randomVal);
-            sysLoad.find('.percent').text(randomVal);
-        }, updateInterval);
-
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-    });
-</script>
-
-<script th:src="@{/controller/route.js}"></script>
-<script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
-<script th:src="@{/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js}"></script>
-<script th:src="@{/assets/vendor/chartist/js/chartist.min.js}"></script>
-<script th:src="@{/assets/scripts/klorofil-common.js}"></script>
 </body>
+
+
+<!-- Vendor JS Files -->
+<script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+<script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+<script th:src="@{/assets/vendor/quill/quill.js}"></script>
+<script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+<script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+<script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
+
+<!-- Template Main JS File -->
+<script th:src="@{/assets/js/main.js}"></script>
 </html>

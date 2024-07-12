@@ -1,6 +1,6 @@
-package com.example.demo.sanpham.Chip.repository;
+package com.example.demo.sanpham.chip.repository;
 
-import com.example.demo.sanpham.Chip.entity.Chip;
+import com.example.demo.sanpham.chip.entity.Chip;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
