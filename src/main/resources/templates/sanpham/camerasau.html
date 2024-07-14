@@ -497,7 +497,6 @@
         <tbody>
         <!-- Iterate over cameras fetched from the model -->
         <tr th:each="camera,stat : ${cameras}">
-
             <td th:text="${stat.count + 1}">Code</td>
             <td th:text="${camera.maCameraSau}">Code</td>
             <td th:text="${camera.tenCameraSau}">Name</td>

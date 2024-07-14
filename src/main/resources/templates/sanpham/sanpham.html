@@ -383,27 +383,22 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
-                        <i class="bi bi-circle"></i><span>Form Elements</span>
+                    <a th:href="@{/hoa-don/hien-thi}">
+                        <i class="bi bi-circle"></i><span>Quản Lý Hóa Đơn</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
-                        <i class="bi bi-circle"></i><span>Form Layouts</span>
+                    <a th:href="@{/hoa-don-chi-tiet/hien-thi}">
+                        <i class="bi bi-circle"></i><span>Hóa Đơn Chi Tiết</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-editors.html">
-                        <i class="bi bi-circle"></i><span>Form Editors</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="forms-validation.html">
-                        <i class="bi bi-circle"></i><span>Form Validation</span>
+                    <a th:href="@{/lich-su-hoa-don/hien-thi}">
+                        <i class="bi bi-circle"></i><span>Lịch Sử Hóa Đơn</span>
                     </a>
                 </li>
             </ul>
-        </li><!-- End Forms Nav -->
+        </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -476,19 +471,15 @@
 </aside><!-- End Sidebar-->
 
 <main id="main" class="main" style="background: white">
-
+    <p><h2>QUẢN LÝ SẢN PHẨM</h2></p>
     <div class="row g-3">
         <div class="col-md-4 ">
             <form th:action="@{/SanPham/SanPhams}" th:method="get">
-                <input type="text" th:name="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm theo Mã, tên "
-                       aria-label="Tìm kiếm" aria-describedby="basic-addon1">
+                <input type="text" th:name="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm">
             </form>
-
         </div>
         <div class="col-md-3">
-            <button type="submit" class="btn btn-warning">
-                <a th:href="@{/SanPham/SanPhams}">Làm mới</a>
-            </button>
+                <a th:href="@{/SanPham/SanPhams}"><button type="submit" class="btn btn-warning">Làm mới</button></a>
         </div>
 
     </div>
@@ -559,42 +550,26 @@
                 </select>
             </div>
 
-
-
-            <!-- Uncomment and populate additional dropdowns if needed -->
-            <!-- <div class="col-2">
-                <select id="sapXep" class="form-select danh">
-                    <option selected>Mới</option>
-                    <!-- Add more options here -->
-            <!-- </select>
-        </div>
-        <div class="col-2">
-            <select id="hienThi" class="form-select danh">
-                <option selected>10/Pages</option>
-                <!-- Add more options here -->
-            <!-- </select>
-        </div> -->
         </div>
     </div>
-
-    <a th:href="@{/SanPham/SanPhams/viewAdd}" class="btn btn-outline-success  float-end mb-3">
-        <i class="icon-class-name"> <!-- Replace 'icon-class-name' with the class for your Icons8 icon -->
-            <!-- You can use an image tag to display the icon -->
+    <a th:href="@{/SanPham/SanPhams/viewAdd}" class="btn btn-outline-success float-end mb-3">
+        <i class="icon-class-name">
             <img src="https://img.icons8.com/?size=25&id=TNTpW1UDsN87&format=png&color=000000" alt="Icon">
         </i>
     </a>
 
-    <table class="table pt-3">
+    <table class="table table-bordered table-hover text-center pt-3">
+        <p><h2>DANH SÁCH SẢN PHẨM</h2></p>
         <thead class="thead-dark">
-        <tr>
-            <th>STT</th>
-            <th>Mã sản phẩm</th>
-            <th>Tên sản phẩm</th>
-            <th>Hãng</th>
-            <th>Số lượng</th>
-            <th>Trạng thái</th>
-            <th>Action</th>
-        </tr>
+            <tr>
+                <th>STT</th>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Hãng</th>
+                <th>Số lượng</th>
+                <th>Trạng thái</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
         <tr th:each="sanPham, stat : ${sanPhams.content}">
@@ -603,7 +578,6 @@
             <td th:text="${sanPham.tenSanPham}"></td>
             <td th:text="${sanPham.hang.tenHang}"></td>
             <td>
-                <!-- Display the count of id_imei -->
                 <span th:text="${countIdImeiWhereDeletedIsZero != null ? countIdImeiWhereDeletedIsZero : 'N/A'}"></span>
             </td>
             <td>
@@ -615,8 +589,6 @@
                     <i class="icon-class-name">
                         <img src="https://img.icons8.com/?size=25&id=71201&format=png&color=000000" alt="">
                     </i>
-
-
                 </a>
                 <a th:href="@{/SanPham/SanPhams/delete/{id}(id=${sanPham.id})}" class="btn">
                     <i class="icon-class-name">
@@ -686,19 +658,6 @@
     </div>
 
 </main><!-- End #main -->
-
-
-<!--&lt;!&ndash; ======= Footer ======= &ndash;&gt;-->
-<!--<footer id="footer" class="footer">-->
-<!--    <div class="copyright">-->
-<!--        &copy; Copyright <strong><span>PoPo</span></strong>. All Rights Reserved-->
-<!--    </div>-->
-<!--    <div class="credits">-->
-
-<!--        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
-<!--    </div>-->
-<!--</footer>&lt;!&ndash; End Footer &ndash;&gt;-->
-
 
 </body>
 <script>

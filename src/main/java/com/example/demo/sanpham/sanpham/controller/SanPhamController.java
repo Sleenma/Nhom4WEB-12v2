@@ -83,7 +83,7 @@
         @GetMapping
         public String listSanPhams(Model model,
                                    @RequestParam(name = "page",defaultValue = "0") int pageNo,
-                                   @RequestParam(name = "limit",defaultValue = "5") int pageSize,
+                                   @RequestParam(name = "limit",defaultValue = "4") int pageSize,
                                    @RequestParam(name = "keyword",defaultValue = "") String keyword) {
             Pageable pageable = PageRequest.of(pageNo, pageSize);
             String k = "%" + keyword + "%";
@@ -95,7 +95,7 @@
             model.addAttribute("sanPhams", ds);
             model.addAttribute("sanPhamList", sanPhamRepository.findAll());
             model.addAttribute("keyword", keyword);
-            model.addAttribute("sanPham", new SanPham()); // for form binding
+            model.addAttribute("sanPham", new SanPham());
             model.addAttribute("cameraTruocList", cameraTruocRepository.findAll());
             model.addAttribute("cameraSauList", cameraSauRepository.findAll());
             model.addAttribute("chipList", chipRepository.findAll());
