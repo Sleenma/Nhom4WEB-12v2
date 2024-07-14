@@ -5,10 +5,34 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-container div {
+            flex: 1;
+            margin: 10px;
+        }
+
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .css_select_div {
+            margin-bottom: 10px;
+        }
+    </style>
+
 
     <style type="text/css">
         .css_select_div {
-            text-align: center;
+            text-align: start;
         }
 
         .css_select {
@@ -526,9 +550,84 @@
     <!--                      <button type="submit" class="btn btn-outline-primary">add</button>-->
 
     <!--                </form>-->
+<!--    <form th:action="@{/khachHang/add}" method="post">-->
+<!--        <div >-->
+<!--            <h3 class="float-center"> Thêm Địa Chỉ</h3>-->
+<!--        </div>-->
+<!--        <div class="form-container">-->
+
+<!--            &lt;!&ndash; Bên trái: 3 input &ndash;&gt;-->
+<!--            <div>-->
+<!--                <div>-->
+<!--                    <label for="tenKH">Tên khách hàng:</label>-->
+<!--                    <input id="tenKH" class="col-mb-6" name="tenKH" required>-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                    <label for="email">Email:</label>-->
+<!--                    <input id="email" class="col-mb-6" name="email" required>-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                    <label for="ngaySinh">Ngày sinh:</label>-->
+<!--                    <input id="ngaySinh" type="date" name="ngaySinh" required size="6">-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                    <label for="sdt">Số điện thoại:</label>-->
+<!--                    <input id="sdt" type="number" name="sdt" required size="6">-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Bên phải: 3 select &ndash;&gt;-->
+<!--            <div>-->
+<!--                <div>-->
+<!--                    <label for="diaChiCT">dia chi chi tiet:</label>-->
+<!--                    <input id="diaChiCT" type="text" name="diaChiList[0].diaChiCT" required size="6">-->
+<!--                </div>-->
+
+<!--                <div class="css_select_div">-->
+<!--                    <label for="tinh">Tỉnh Thành:</label>-->
+<!--                    <select class="css_select" id="tinh" name="diaChiList[0].tinh" title="Chọn Tỉnh Thành"-->
+<!--                            required>-->
+<!--                        <option value="0">Tỉnh Thành</option>-->
+<!--                        &lt;!&ndash; Thêm các tùy chọn tỉnh thành tại đây &ndash;&gt;-->
+<!--                    </select>-->
+<!--                </div>-->
+
+<!--                <div class="css_select_div">-->
+<!--                    <label for="quan">Quận Huyện:</label>-->
+<!--                    <select class="css_select" id="quan" name="diaChiList[0].quan" title="Chọn Quận Huyện"-->
+<!--                            required>-->
+<!--                        <option value="0">Quận Huyện</option>-->
+<!--                        &lt;!&ndash; Thêm các tùy chọn quận huyện tại đây &ndash;&gt;-->
+<!--                    </select>-->
+<!--                </div>-->
+
+<!--                <div class="css_select_div">-->
+<!--                    <label for="phuong">Phường Xã:</label>-->
+<!--                    <select class="css_select" id="phuong" name="diaChiList[0].xa" title="Chọn Phường Xã"-->
+<!--                            required>-->
+<!--                        <option value="0">Phường Xã</option>-->
+<!--                        &lt;!&ndash; Thêm các tùy chọn phường xã tại đây &ndash;&gt;-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <input type="hidden" id="tinhTen" name="diaChiList[0].tinhTen">-->
+<!--        <input type="hidden" id="quanTen" name="diaChiList[0].quanTen">-->
+<!--        <input type="hidden" id="phuongTen" name="diaChiList[0].phuongTen">-->
+<!--        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">-->
+<!--            <img src="https://img.icons8.com/?size=25&id=TNTpW1UDsN87&format=png&color=000000" alt="Icon">-->
+<!--        </button>-->
+<!--    </form>-->
     <form th:action="@{/khachHang/add}" method="post">
+        <div>
+            <h3 class="float-center"> Thêm Địa Chỉ</h3>
+        </div>
         <div class="form-container">
-            <!-- Bên trái: 3 input -->
+
+            <!-- Bên trái: các input -->
             <div>
                 <div>
                     <label for="tenKH">Tên khách hàng:</label>
@@ -542,21 +641,25 @@
 
                 <div>
                     <label for="ngaySinh">Ngày sinh:</label>
-                    <input id="ngaySinh" type="date" name="ngaySinh" required size="6">
+                    <input id="ngaySinh" type="date" name="ngaySinh" required>
                 </div>
 
                 <div>
                     <label for="sdt">Số điện thoại:</label>
-                    <input id="sdt" type="number" name="sdt" required size="6">
+                    <input id="sdt" type="number" name="sdt" required>
                 </div>
             </div>
 
-            <!-- Bên phải: 3 select -->
+            <!-- Bên phải: các select -->
             <div>
+                <div>
+                    <label for="diaChiCT">Địa chỉ chi tiết:</label>
+                    <input id="diaChiCT" type="text" name="diaChiList[0].diaChiCT" required>
+                </div>
+
                 <div class="css_select_div">
                     <label for="tinh">Tỉnh Thành:</label>
-                    <select class="css_select" id="tinh" name="diaChi.tinh" title="Chọn Tỉnh Thành"
-                            required>
+                    <select class="css_select" id="tinh" name="diaChiList[0].tinh" title="Chọn Tỉnh Thành" required>
                         <option value="0">Tỉnh Thành</option>
                         <!-- Thêm các tùy chọn tỉnh thành tại đây -->
                     </select>
@@ -564,8 +667,7 @@
 
                 <div class="css_select_div">
                     <label for="quan">Quận Huyện:</label>
-                    <select class="css_select" id="quan" name="diaChi.quan" title="Chọn Quận Huyện"
-                            required>
+                    <select class="css_select" id="quan" name="diaChiList[0].quan" title="Chọn Quận Huyện" required>
                         <option value="0">Quận Huyện</option>
                         <!-- Thêm các tùy chọn quận huyện tại đây -->
                     </select>
@@ -573,19 +675,21 @@
 
                 <div class="css_select_div">
                     <label for="phuong">Phường Xã:</label>
-                    <select class="css_select" id="phuong" name="diaChi.xa" title="Chọn Phường Xã"
-                            required>
+                    <select class="css_select" id="phuong" name="diaChiList[0].xa" title="Chọn Phường Xã" required>
                         <option value="0">Phường Xã</option>
                         <!-- Thêm các tùy chọn phường xã tại đây -->
                     </select>
                 </div>
             </div>
         </div>
-        <input type="hidden" id="tinhTen" name="diaChi.tinhTen">
-        <input type="hidden" id="quanTen" name="diaChi.quanTen">
-        <input type="hidden" id="phuongTen" name="diaChi.phuongTen">
-        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Thêm</button>
+        <input type="hidden" id="tinhTen" name="diaChiList[0].tinhTen">
+        <input type="hidden" id="quanTen" name="diaChiList[0].quanTen">
+        <input type="hidden" id="phuongTen" name="diaChiList[0].phuongTen">
+        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">
+            <img src="https://img.icons8.com/?size=25&id=TNTpW1UDsN87&format=png&color=000000" alt="Icon">
+        </button>
     </form>
+
     <script>
         $(document).ready(function () {
             // Lấy tỉnh thành

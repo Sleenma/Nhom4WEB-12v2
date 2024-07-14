@@ -5,7 +5,39 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .address-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
 
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+    <style>
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    </style>
     <style type="text/css">
         .css_select_div {
             text-align: center;
@@ -501,122 +533,369 @@
 
 <main id="main" class="main">
 
-        <form th:action="@{/khachHang/update}" method="post">
-            <div class="form-container">
-                <!-- Bên trái: 3 input -->
-                <input type="hidden"  id="id" name="id"  th:value="${listKH.id}">
-                <input type="hidden"  id="maKH" name="maKH"  th:value="${listKH.maKH}">
+    <form th:action="@{/khachHang/update}" th:object="${listKH}" method="post" id="khachHangForm">
+        <div class="form-container">
+            <div>
+                <input type="hidden" id="id" name="id" th:value="${listKH.id}">
+                <input type="hidden" id="maKH" name="maKH" th:value="${listKH.maKH}">
                 <div>
-                    <div>
-                        <label for="tenKH">Tên khách hàng:</label>
-                        <input id="tenKH"  class="col-mb-6" name="tenKH" th:value="${listKH.tenKH}" required >
-                    </div>
-                    <div>
-                        <label for="email">Email:</label>
-                        <input id="email" class="col-mb-6" name="email" th:value="${listKH.email}" required>
-                    </div>
-
-                    <div>
-                        <label for="ngaySinh">Ngày sinh:</label>
-                        <input id="ngaySinh" type="date" name="ngaySinh" th:value="${listKH.ngaySinh}" required>
-                    </div>
-
-                    <div>
-                        <label for="sdt">Số điện thoại:</label>
-                        <input id="sdt" type="number" name="sdt" th:value="${listKH.sdt}" required>
-                    </div>
+                    <label for="tenKH">Tên khách hàng:</label>
+                    <input id="tenKH" name="tenKH" th:value="${listKH.tenKH}" required>
                 </div>
-
-                <!-- Bên phải: 3 select -->
                 <div>
-                    <div class="css_select_div">
-                        <label for="tinh">Tỉnh Thành:</label>
-                        <select class="css_select" id="tinh" name="diaChi.tinh" title="Chọn Tỉnh Thành">
-                            <!--                                <option value="0">Tỉnh Thành</option>-->
-                            <option th:value="${listKH.diaChi.tinhTen}" th:text="${listKH.diaChi.tinhTen}"></option>
-                        </select>
-                    </div>
-
-                    <div class="css_select_div">
-                        <label for="quan">Quận Huyện:</label>
-                        <select class="css_select" id="quan" name="diaChi.quan" title="Chọn Quận Huyện">
-                            <!--                                <option value="0">Quận Huyện</option>-->
-                            <option th:value="${listKH.diaChi.quanTen}" th:text="${listKH.diaChi.quanTen}"></option>
-                        </select>
-                    </div>
-
-                    <div class="css_select_div">
-                        <label for="phuong">Phường Xã:</label>
-                        <select class="css_select" id="phuong" name="diaChi.xa" title="Chọn Phường Xã">
-                            <!--                                <option value="0">Phường Xã</option>-->
-                            <option th:value="${listKH.diaChi.phuongTen}" th:text="${listKH.diaChi.phuongTen}"></option>
-                        </select>
-                    </div>
+                    <label for="email">Email:</label>
+                    <input id="email" name="email" th:value="${listKH.email}" required>
                 </div>
-
+                <div>
+                    <label for="ngaySinh">Ngày sinh:</label>
+                    <input id="ngaySinh" type="date" name="ngaySinh" th:value="${listKH.ngaySinh}" required>
+                </div>
+                <div>
+                    <label for="sdt">Số điện thoại:</label>
+                    <input id="sdt" type="number" name="sdt" th:value="${listKH.sdt}" required>
+                </div>
             </div>
+            <div>
+            <div id="addresses">
+                <h2>Danh Sách Địa Chỉ Của Khách Hàng</h2>
+                <button type="button" class="btn btn-outline-primary" onclick="addAddress()">
+                    Thêm địa chỉ
+                </button>
+<!--                <div th:each="address,iterStat : ${khachHang.diaChiList}">-->
+<!--                    <div class="address-container">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__diaChiCT">Địa chỉ cụ thể:</label>-->
+<!--                            <input type="text" id="diaChi__${iterStat.index}__diaChiCT"-->
+<!--                                   th:field="*{diaChiList[__${iterStat.index}__].diaChiCT}" required>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__tinh">Tỉnh/Thành phố:</label>-->
+<!--                            <select id="diaChi__${iterStat.index}__tinh"-->
+<!--                                    th:field="*{diaChiList[__${iterStat.index}__].tinh}" required>-->
+<!--                                <option value="">Chọn Tỉnh/Thành phố</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__quan">Quận/Huyện:</label>-->
+<!--                            <select id="diaChi__${iterStat.index}__quan"-->
+<!--                                    th:field="*{diaChiList[__${iterStat.index}__].quan}" required>-->
+<!--                                <option value="">Chọn Quận/Huyện</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__phuong">Xã/Phường/Thị trấn:</label>-->
+<!--                            <select id="diaChi__${iterStat.index}__phuong"-->
+<!--                                    th:field="*{diaChiList[__${iterStat.index}__].phuong}" required>-->
+<!--                                <option value="">Chọn Xã/Phường/Thị trấn</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__macDinh">Địa chỉ mặc định:</label>-->
+<!--                            <input id="diaChi__${iterStat.index}__macDinh" type="checkbox"-->
+<!--                                   th:field="*{diaChiList[__${iterStat.index}__].macDinh}">-->
+<!--                        </div>-->
+<!--                        <button type="button" class="btn btn-primary" onclick="updateAddress(this)">Cập nhật</button>-->
+<!--                        <button type="button" class="btn btn-danger" onclick="removeAddress(this)">Xóa</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+                <div th:each="diaChiList, iterStat : ${diaChiList}">
+                    <div class="address-container">
+                        <div class="form-group">
+                            <label for="diaChiCT">Địa chỉ cụ thể:</label>
+                            <input type="text" id="diaChiCT" th:field="*{diaChiList[__${iterStat.index}__].diaChiCT}" required>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="tinh">Tỉnh/Thành phố:</label>
+                            <select id="tinh" th:field="*{diaChiList[__${iterStat.index}__].tinhTen}" required>
+                                <option value="">Chọn Tỉnh/Thành phố</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quan">Quận/Huyện:</label>
+                            <select id="quan" th:field="*{diaChiList[__${iterStat.index}__].quanTen}" required>
+                                <option value="">Chọn Quận/Huyện</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="phuong">Xã/Phường/Thị trấn:</label>
+                            <select id="phuong" th:field="*{diaChiList[__${iterStat.index}__].phuongTen}" required>
+                                <option value="">Chọn Xã/Phường/Thị trấn</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="macDinh">Địa chỉ mặc định:</label>
+                            <input id="macDinh" type="checkbox" th:field="*{diaChiList[__${iterStat.index}__].macDinh}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">
+            <img src="https://img.icons8.com/?size=25&id=TNTpW1UDsN87&format=png&color=000000" alt="Icon"> update
+        </button>
+    </form>
+            <script>
+                let addressCount = [[${khachHang.diaChiList.size()}]];
+                function addAddress() {
+                    const addressDiv = document.createElement('div');
+                    addressDiv.className = 'address-container';
+                    addressDiv.innerHTML = `
+                <div class="form-group">
+                    <label for="diaChi__${addressCount}__diaChiCT">Địa chỉ cụ thể:</label>
+                    <input type="text" id="diaChi__${addressCount}__diaChiCT"
+                           th:field="*{diaChiList[__${addressCount}__].diaChiCT}" required>
+                </div>
+                <div class="form-group">
+                    <label for="diaChi__${addressCount}__tinh">Tỉnh/Thành phố:</label>
+                    <select id="diaChi__${addressCount}__tinh"
+                            th:field="*{diaChiList[__${addressCount}__].tinh}" required>
+                        <option value="">Chọn Tỉnh/Thành phố</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="diaChi__${addressCount}__quan">Quận/Huyện:</label>
+                    <select id="diaChi__${addressCount}__quan"
+                            th:field="*{diaChiList[__${addressCount}__].quan}" required>
+                        <option value="">Chọn Quận/Huyện</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="diaChi__${addressCount}__phuong">Xã/Phường/Thị trấn:</label>
+                    <select id="diaChi__${addressCount}__phuong"
+                            th:field="*{diaChiList[__${addressCount}__].phuong}" required>
+                        <option value="">Chọn Xã/Phường/Thị trấn</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="diaChi__${addressCount}__macDinh">Địa chỉ mặc định:</label>
+                    <input type="checkbox" id="diaChi__${addressCount}__macDinh"
+                           th:field="*{diaChiList[__${addressCount}__].macDinh}">
+                </div>
+            <button type="button" class="btn btn-primary" onclick="updateAddress(this)">Cập nhật</button>
+            <button type="button" class="btn btn-danger" onclick="removeAddress(this)">Xóa</button>
+        `;
+                    document.getElementById('addresses').appendChild(addressDiv);
+                    addressCount++;
+                    initializeAddressDropdowns(addressCount - 1);
+                }
 
-            <input type="hidden"  id="tinhTen" name="diaChi.tinhTen"  th:value="${listKH.diaChi.tinhTen}">
-            <input type="hidden"  id="quanTen" name="diaChi.quanTen" th:value="${listKH.diaChi.quanTen}">
-            <input  type="hidden" id="phuongTen" name="diaChi.phuongTen" th:value="${listKH.diaChi.phuongTen}">
+                function updateAddress(button) {
+                    // Xử lý cập nhật địa chỉ ở đây
+                }
 
+                function removeAddress(button) {
+                    button.parentElement.remove();
+                }
 
-
-            <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Update</button>
-        </form>
-        <script>
-            $(document).ready(function () {
-                // Lấy tỉnh thành
-                $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
-                    if (data_tinh.error == 0) {
-                        $.each(data_tinh.data, function (key_tinh, val_tinh) {
-                            $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
-                        });
-
-                        $("#tinh").change(function (e) {
-                            var idtinh = $(this).val();
-                            var tenTinh = $("#tinh option:selected").text();
-                            $("#tinhTen").val(tenTinh);
-
-                            // Lấy quận huyện
-                            $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function (data_quan) {
-                                if (data_quan.error == 0) {
-                                    $("#quan").html('<option value="0">Quận Huyện</option>');
-                                    $("#phuong").html('<option value="0">Phường Xã</option>');
-                                    $.each(data_quan.data, function (key_quan, val_quan) {
-                                        $("#quan").append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
-                                    });
-
-                                    $("#quan").change(function (e) {
-                                        var idquan = $(this).val();
-                                        var tenQuan = $("#quan option:selected").text();
-                                        $("#quanTen").val(tenQuan);
-
-                                        // Lấy phường xã
-                                        $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function (data_phuong) {
-                                            if (data_phuong.error == 0) {
-                                                $("#phuong").html('<option value="0">Phường Xã</option>');
-                                                $.each(data_phuong.data, function (key_phuong, val_phuong) {
-                                                    $("#phuong").append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
-                                                });
-
-                                                $("#phuong").change(function (e) {
-                                                    var tenPhuong = $("#phuong option:selected").text();
-                                                    $("#phuongTen").val(tenPhuong);
-                                                });
-                                            }
-                                        });
-                                    });
-                                }
+                function initializeAddressDropdowns(index) {
+                    $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
+                        if (data_tinh.error == 0) {
+                            $.each(data_tinh.data, function (key_tinh, val_tinh) {
+                                $(`#diaChi__${index}__tinh`).append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
                             });
-                        });
+
+                            $(`#diaChi__${index}__tinh`).change(function () {
+                                var idtinh = $(this).val();
+                                var tenTinh = $(`#diaChi__${index}__tinh option:selected`).text();
+                                $(`#diaChi__${index}__tinhTen`).val(tenTinh);
+
+                                // Lấy quận huyện
+                                $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function (data_quan) {
+                                    if (data_quan.error == 0) {
+                                        $(`#diaChi__${index}__quan`).html('<option value="">Chọn Quận/Huyện</option>');
+                                        $(`#diaChi__${index}__phuong`).html('<option value="">Chọn Xã/Phường/Thị trấn</option>');
+                                        $.each(data_quan.data, function (key_quan, val_quan) {
+                                            $(`#diaChi__${index}__quan`).append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                                        });
+
+                                        $(`#diaChi__${index}__quan`).change(function () {
+                                            var idquan = $(this).val();
+                                            var tenQuan = $(`#diaChi__${index}__quan option:selected`).text();
+                                            $(`#diaChi__${index}__quanTen`).val(tenQuan);
+
+                                            // Lấy phường xã
+                                            $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function (data_phuong) {
+                                                if (data_phuong.error == 0) {
+                                                    $(`#diaChi__${index}__phuong`).html('<option value="">Chọn Xã/Phường/Thị trấn</option>');
+                                                    $.each(data_phuong.data, function (key_phuong, val_phuong) {
+                                                        $(`#diaChi__${index}__phuong`).append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
+                                                    });
+
+                                                    $(`#diaChi__${index}__phuong`).change(function () {
+                                                        var tenPhuong = $(`#diaChi__${index}__phuong option:selected`).text();
+                                                        $(`#diaChi__${index}__phuongTen`).val(tenPhuong);
+                                                    });
+                                                }
+                                            });
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+                $(document).ready(function () {
+                    // Khởi tạo dropdown cho các địa chỉ hiện có
+                    for (let i = 0; i < addressCount; i++) {
+                        initializeAddressDropdowns(i);
                     }
                 });
-            });
-        </script>
+            </script>
 
 
+<!--            <div id="addresses">-->
+<!--                <h3>Danh Sách Địa Chỉ</h3>-->
+<!--                <div th:each="address, iterStat : ${khachHang.diaChiList}">-->
+<!--                    <div class="address-container">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__diaChiCT">Địa chỉ cụ thể:</label>-->
+<!--                            <input type="text" id="diaChi__${iterStat.index}__diaChiCT"-->
+<!--                                   th:field="*{diaChiList[__${iterStat.index}__].diaChiCT}" required>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__tinh">Tỉnh/Thành phố:</label>-->
+<!--                            <select id="diaChi__${iterStat.index}__tinh"-->
+<!--                                    th:field="*{diaChiList[__${iterStat.index}__].tinh}" required>-->
+<!--                                <option value="">Chọn Tỉnh/Thành phố</option>-->
+<!--                                &lt;!&ndash; Các tùy chọn tỉnh/thành phố sẽ được điền từ JavaScript &ndash;&gt;-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__quan">Quận/Huyện:</label>-->
+<!--                            <select id="diaChi__${iterStat.index}__quan"-->
+<!--                                    th:field="*{diaChiList[__${iterStat.index}__].quan}" required>-->
+<!--                                <option value="">Chọn Quận/Huyện</option>-->
+<!--                                &lt;!&ndash; Các tùy chọn quận/huyện sẽ được điền từ JavaScript &ndash;&gt;-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__phuong">Xã/Phường/Thị trấn:</label>-->
+<!--                            <select id="diaChi__${iterStat.index}__phuong"-->
+<!--                                    th:field="*{diaChiList[__${iterStat.index}__].phuong}" required>-->
+<!--                                <option value="">Chọn Xã/Phường/Thị trấn</option>-->
+<!--                                &lt;!&ndash; Các tùy chọn xã/phường/thị trấn sẽ được điền từ JavaScript &ndash;&gt;-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="diaChi__${iterStat.index}__macDinh">Địa chỉ mặc định:</label>-->
+<!--                            <input id="diaChi__${iterStat.index}__macDinh" type="checkbox"-->
+<!--                                   th:field="*{diaChiList[__${iterStat.index}__].macDinh}">-->
+<!--                        </div>-->
+<!--                        <button type="button" onclick="removeAddress(this)">Xóa</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <button type="button" onclick="addAddress()">Thêm Địa Chỉ Mới</button>-->
+<!--        </div>-->
+<!--        <button type="submit">Update</button>-->
+<!--    </form>-->
+
+<!--    <script>-->
+<!--        let addressCount = [[${khachHang.diaChiList.size()}]];-->
+
+<!--        function addAddress() {-->
+<!--            const addressDiv = document.createElement('div');-->
+<!--            addressDiv.className = 'address-container';-->
+<!--            addressDiv.innerHTML = `-->
+<!--                <div class="form-group">-->
+<!--                    <label for="diaChi__${addressCount}__diaChiCT">Địa chỉ cụ thể:</label>-->
+<!--                    <input type="text" id="diaChi__${addressCount}__diaChiCT"-->
+<!--                           th:field="*{diaChiList[__${addressCount}__].diaChiCT}" required>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="diaChi__${addressCount}__tinh">Tỉnh/Thành phố:</label>-->
+<!--                    <select id="diaChi__${addressCount}__tinh"-->
+<!--                            th:field="*{diaChiList[__${addressCount}__].tinh}" required>-->
+<!--                        <option value="">Chọn Tỉnh/Thành phố</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="diaChi__${addressCount}__quan">Quận/Huyện:</label>-->
+<!--                    <select id="diaChi__${addressCount}__quan"-->
+<!--                            th:field="*{diaChiList[__${addressCount}__].quan}" required>-->
+<!--                        <option value="">Chọn Quận/Huyện</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="diaChi__${addressCount}__phuong">Xã/Phường/Thị trấn:</label>-->
+<!--                    <select id="diaChi__${addressCount}__phuong"-->
+<!--                            th:field="*{diaChiList[__${addressCount}__].phuong}" required>-->
+<!--                        <option value="">Chọn Xã/Phường/Thị trấn</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="diaChi__${addressCount}__macDinh">Địa chỉ mặc định:</label>-->
+<!--                    <input type="checkbox" id="diaChi__${addressCount}__macDinh"-->
+<!--                           th:field="*{diaChiList[__${addressCount}__].macDinh}">-->
+<!--                </div>-->
+<!--                <button type="button" onclick="removeAddress(this)">Xóa</button>-->
+<!--            `;-->
+<!--            document.getElementById('addresses').appendChild(addressDiv);-->
+<!--            addressCount++;-->
+<!--            initializeAddressDropdowns(addressCount - 1);-->
+<!--        }-->
+
+<!--        function removeAddress(button) {-->
+<!--            button.parentElement.remove();-->
+<!--        }-->
+
+<!--        function initializeAddressDropdowns(index) {-->
+<!--            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {-->
+<!--                if (data_tinh.error == 0) {-->
+<!--                    $.each(data_tinh.data, function (key_tinh, val_tinh) {-->
+<!--                        $(`#diaChi__${index}__tinh`).append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');-->
+<!--                    });-->
+
+<!--                    $(`#diaChi__${index}__tinh`).change(function () {-->
+<!--                        var idtinh = $(this).val();-->
+<!--                        var tenTinh = $(`#diaChi__${index}__tinh option:selected`).text();-->
+<!--                        $(`#diaChi__${index}__tinhTen`).val(tenTinh);-->
+
+<!--                        // Lấy quận huyện-->
+<!--                        $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function (data_quan) {-->
+<!--                            if (data_quan.error == 0) {-->
+<!--                                $(`#diaChi__${index}__quan`).html('<option value="">Chọn Quận/Huyện</option>');-->
+<!--                                $(`#diaChi__${index}__phuong`).html('<option value="">Chọn Xã/Phường/Thị trấn</option>');-->
+<!--                                $.each(data_quan.data, function (key_quan, val_quan) {-->
+<!--                                    $(`#diaChi__${index}__quan`).append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');-->
+<!--                                });-->
+
+<!--                                $(`#diaChi__${index}__quan`).change(function () {-->
+<!--                                    var idquan = $(this).val();-->
+<!--                                    var tenQuan = $(`#diaChi__${index}__quan option:selected`).text();-->
+<!--                                    $(`#diaChi__${index}__quanTen`).val(tenQuan);-->
+
+<!--                                    // Lấy phường xã-->
+<!--                                    $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function (data_phuong) {-->
+<!--                                        if (data_phuong.error == 0) {-->
+<!--                                            $(`#diaChi__${index}__phuong`).html('<option value="">Chọn Xã/Phường/Thị trấn</option>');-->
+<!--                                            $.each(data_phuong.data, function (key_phuong, val_phuong) {-->
+<!--                                                $(`#diaChi__${index}__phuong`).append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');-->
+<!--                                            });-->
+
+<!--                                            $(`#diaChi__${index}__phuong`).change(function () {-->
+<!--                                                var tenPhuong = $(`#diaChi__${index}__phuong option:selected`).text();-->
+<!--                                                $(`#diaChi__${index}__phuongTen`).val(tenPhuong);-->
+<!--                                            });-->
+<!--                                        }-->
+<!--                                    });-->
+<!--                                });-->
+<!--                            }-->
+<!--                        });-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--        $(document).ready(function () {-->
+<!--            // Khởi tạo dropdown cho các địa chỉ hiện có-->
+<!--            for (let i = 0; i < addressCount; i++) {-->
+<!--                initializeAddressDropdowns(i);-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
 </main><!-- End #main -->
 
 

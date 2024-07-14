@@ -7,17 +7,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -29,12 +36,17 @@ import java.util.UUID;
 public class KhachHang {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)// CascadeType.PERSIST sẽ tự động lưu đối tượng DiaChi nếu nó chưa được lưu
-    @JoinColumn(name = "idDC")
-    private DiaChi diaChi;
+//
+//@JoinColumn(name = "idDC")
+@OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL,orphanRemoval = true)
+private List<DiaChi> diaChiList = new ArrayList<>();
+
+
+//    @ManyToOne(cascade = CascadeTy    pe.PERSIST)// CascadeType.PERSIST sẽ tự động lưu đối tượng DiaChi nếu nó chưa được lưu
+//    private DiaChi diaChi;
 
     @Column(name = "ten_khach_hang")
     private String tenKH;
@@ -50,7 +62,6 @@ public class KhachHang {
 
     @Column(name = "email")
     private String email;
-
 
     @Column(name = "mat_khau")
     private String matKhau;
@@ -69,8 +80,6 @@ public class KhachHang {
 
     @Column(name = "deleted")
     private Boolean deleted = true;
-
-
 
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int CODE_LENGTH = 8;

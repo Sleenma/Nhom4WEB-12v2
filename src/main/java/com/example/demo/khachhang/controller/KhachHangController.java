@@ -4,8 +4,10 @@ import com.example.demo.khachhang.entity.DiaChi;
 import com.example.demo.khachhang.entity.KhachHang;
 import com.example.demo.khachhang.repository.DiaCHiRepository;
 import com.example.demo.khachhang.repository.KhachHangRepository;
+import com.example.demo.khachhang.response.KhachHangResponse;
 import com.example.demo.khachhang.serive.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,6 +27,7 @@ import java.util.UUID;
 
 @Controller
 public class KhachHangController {
+
     @Autowired
     private KhachHangRepository khachHangRepository;
 
@@ -34,21 +37,33 @@ public class KhachHangController {
     @Autowired
     private DiaCHiRepository diaCHiRepository;
 
-
-
     @GetMapping("/khachHang")
-    private String hienThi(Model model,
-                           @RequestParam(name = "page", defaultValue = "0") Integer page,
-                           @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+    public String hienThi(Model model,
+                          @RequestParam(name = "page", defaultValue = "0") Integer page,
+                          @RequestParam(name = "keyword", defaultValue = "") String keyword,
+                          @RequestParam(name = "deleted", defaultValue = "true") Boolean deleted) {
         model.addAttribute("keyword", keyword);
-
+        KhachHang khachHangg = new KhachHang();
         String keyword1 = "%" + keyword + "%";
+
         Pageable pageable = PageRequest.of(page, 10, Sort.by("ngayTao").descending());
-        model.addAttribute("khachHang", khachHangRepository.timKhachHangTheoTenVaSDT(keyword1, keyword1,  pageable));
+        Page<KhachHangResponse> khachHangPage = khachHangRepository.timKhachHangTheoTenVaSDT(keyword1, keyword1, keyword1, deleted, pageable);
+        khachHangg.getDiaChiList().add(new DiaChi());
+        model.addAttribute("khachHang", khachHangPage);
         return "khachhang/khachHang";
     }
-
+//    @GetMapping("/khachHang")
+//    private String hienThi(Model model,
+//                           @RequestParam(name = "page", defaultValue = "0") Integer page,
+//                           @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+//        model.addAttribute("keyword", keyword);
 //
+//        String keyword1 = "%" + keyword + "%";
+//
+//        Pageable pageable = PageRequest.of(page, 10, Sort.by("ngayTao").descending());
+//        model.addAttribute("khachHang", khachHangRepository.timKhachHangTheoTenVaSDT(keyword1, keyword1,keyword1,  pageable));
+//        return "khachhang/khachHang";
+//    }
 //    @RequestMapping("/khachHang")
 //    public String hienthitatca(Model model) {
 //model.addAttribute("khachHang",khachHangRepository.findAllByDeletedTrue());
@@ -57,60 +72,66 @@ public class KhachHangController {
 
     @GetMapping("/khachHang/viewadd")
     public String hienthiadd() {
-
         return "khachhang/addKhachHang";
     }
 
-    @PostMapping("/khachHang/add")
-    public String add(KhachHang khachHang,DiaChi diaChi) {
-//        khachHang.setNgayTao(new Date()); // Hoặc LocalDateTime.now() nếu sử dụng Java 8+
-//        diaChi.setNgayTao(new Date()); // Hoặc LocalDateTime.now() nếu sử dụng Java 8+
-        khachHangRepository.save(khachHang);
-        diaCHiRepository.save(diaChi);
-        return "redirect:/khachHang";
-    }
-    @PostMapping("/khachHang/update")
-    public String update(KhachHang khachHang,DiaChi diaChi) {
-        khachHangRepository.save(khachHang);
-        diaCHiRepository.save(diaChi);
-        return "redirect:/khachHang";
-    }
-//@PostMapping("/khachHang/update")
-//public String update(@ModelAttribute KhachHang khachHang, @ModelAttribute DiaChi diaChi, Model model) {
-//    Optional<KhachHang> existingKhachHang = khachHangRepository.findById(khachHang.getId());
-//    Optional<DiaChi> existingDiaChi = diaCHiRepository.findById(diaChi.getIdDC());
+//    @PostMapping("/khachHang/add")
+//    public String add(KhachHang khachHang,DiaChi diaChi) {
+////        khachHang.setNgayTao(new Date()); // Hoặc LocalDateTime.now() nếu sử dụng Java 8+
+////        diaChi.setNgayTao(new Date()); // Hoặc LocalDateTime.now() nếu sử dụng J
 //
-//    if (existingKhachHang.isPresent() && existingDiaChi.isPresent()) {
+//        for (DiaChi diaChi1 : khachHang.getDiaChiList()) {
+//            if (diaChi1.getIdDC() == null) {
+//                diaChi1.setIdDC(UUID.randomUUID());
+//            }
+//            diaChi.setKhachHang(khachHang); // Liên kết DiaChi với KhachHang
+//        }
+//        khachHangRepository.save(khachHang);
+////        diaChi.setIdDC(new UUID());
+//        diaCHiRepository.save(diaChi)                                   ;
+//        return "redirect:/khachHang";
+//    }
+
+    @PostMapping("/khachHang/add")
+    public String addKhachHang(@ModelAttribute KhachHang khachHang, Model model) {
+        for (DiaChi diaChi : khachHang.getDiaChiList()) {
+            diaChi.setKhachHang(khachHang); // Thiết lập lại quan hệ
+//            khachHang.getDiaChiList().add(diaChi);
+        }
+            khachHangRepository.save(khachHang);
+            return "redirect:/khachHang";
+    }
+
+    @PostMapping("/khachHang/update")
+    public String updateKhachHang(@ModelAttribute KhachHang khachHang, Model model) {
+        for (DiaChi diaChi : khachHang.getDiaChiList()) {
+            diaChi.setKhachHang(khachHang); // Thiết lập lại quan hệ
+//            khachHang.getDiaChiList().add(diaChi);
+        }
+        khachHangRepository.save(khachHang);
+        return "redirect:/khachHang";
+    }
+
+//    @PostMapping("/khachHang/update")
+//    public String update(@ModelAttribute KhachHang khachHang,DiaChi diaChi) {
+//
 //        khachHangRepository.save(khachHang);
 //        diaCHiRepository.save(diaChi);
-//    } else {
-//        // Thêm thông báo lỗi vào model nếu không tìm thấy khách hàng hoặc địa chỉ
-//        model.addAttribute("error", "Không tìm thấy khách hàng hoặc địa chỉ để cập nhật");
-//        return "redirect:/khachHang"; // Hoặc một trang khác để hiển thị lỗi
+//        return "redirect:/khachHang";
 //    }
-//
-//    return "redirect:/khachHang";
-//}
 
     @GetMapping("/khachHang/detail/{id}")
     public String detail(KhachHang khachHang, @PathVariable("id") UUID id, Model model) {
         model.addAttribute("listKH", khachHangRepository.findById(id).orElse(null));
-        model.addAttribute("diaChi", diaCHiRepository.findById(id).orElse(null));
-        model.addAttribute("diaChiList",diaCHiRepository.findAll());
+//        model.addAttribute("diaChi", khachHangRepository.findById(id).orElse(null));
+        model.addAttribute("diaChiList",khachHangRepository.findById(id).orElse(null).getDiaChiList());
         return "khachhang/updateKhachHang";
     }
-
 
     @GetMapping("/khachHang/remove/{id}")
     public String remove(@PathVariable("id") UUID id) {
         khachHangService.removeKhachHang(id);
         return "redirect:/khachHang";
     }
-//@GetMapping("/khachHang/findby")
-//    public String findbyTenandSdt(KhachHang khachHang){
-//        khachHangRepository.timKhachHangTheoTenVaSDT(khachHang.getTenKH(), khachHang.getSdt());
-//    return "khachhang/khachHang";
-//}
 
 }
-
