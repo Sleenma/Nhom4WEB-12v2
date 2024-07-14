@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.UUID;
 
@@ -54,4 +55,5 @@ public class LichSuHoaDon {
 
     @Column(name = "deleted")
     private Integer deleted;
+
 }

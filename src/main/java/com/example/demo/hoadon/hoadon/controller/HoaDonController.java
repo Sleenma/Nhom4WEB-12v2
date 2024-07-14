@@ -27,15 +27,27 @@ public class HoaDonController {
     private IHoaDon hoaDonRepository;
 
     @GetMapping("hien-thi")
-    private String hienThi(Model model,
-                           @RequestParam(name = "page", defaultValue = "0") Integer page,
-                           @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+    public String hienThi(Model model,
+                          @RequestParam(name = "page", defaultValue = "0") Integer page,
+                          @RequestParam(name = "keyword", defaultValue = "") String keyword,
+                          @RequestParam(name = "type", defaultValue = "all") String type,
+                          @RequestParam(name = "trangThai", defaultValue = "0") Integer trangThai) {
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("type", type);
+        model.addAttribute("trangThai", trangThai);
 
         Pageable pageable = PageRequest.of(page, 5);
         String keyword1 = "%" + keyword + "%";
+        Page<HoaDon> hoaDonPage;
 
-        model.addAttribute("listHoaDon", hoaDonRepository.search(keyword, keyword, keyword, pageable));
-        model.addAttribute("keyword1", keyword1);
+        if ("all".equals(type)) {
+            hoaDonPage = hoaDonRepository.findByKeyword(keyword1, pageable);
+        } else {
+            Integer loaiHoaDon = "offline".equals(type) ? 1 : 2;
+            hoaDonPage = hoaDonRepository.search(keyword1, keyword1, keyword1, loaiHoaDon, trangThai, pageable);
+        }
+
+        model.addAttribute("listHoaDon", hoaDonPage);
         return "hoadon/viewhoadon/views";
     }
 
@@ -45,10 +57,10 @@ public class HoaDonController {
         // Xử lý xuất Excel ở đây
     }
 
-
     @GetMapping("view-add")
-    private String viewadd() {
-        return "hoadon/viewhoadon/add";
+    private String viewadd(Model model) {
+            model.addAttribute("hoaDon", new HoaDon());
+            return "hoadon/viewhoadon/add";
     }
 
     @PostMapping("add")
@@ -73,12 +85,12 @@ public class HoaDonController {
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") UUID id, Model model) {
-        model.addAttribute("hoaDon", hoaDonRepository.findById(id).get());
+        model.addAttribute("hoaDon", hoaDonRepository.findById(id).orElse(null));
         model.addAttribute("listHoaDon", hoaDonRepository.findAll());
-        return "hoadon/viewhoadon/views";
+        return "hoadon/viewhoadon/add";
     }
 
-    @GetMapping("/remove/{id}")
+    @GetMapping("/delete/{id}")
     public String remove(@PathVariable("id") UUID id) {
         hoaDonRepository.deleteById(id);
         return "redirect:/hoa-don/hien-thi";

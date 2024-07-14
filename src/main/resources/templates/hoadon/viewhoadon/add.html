@@ -8,48 +8,68 @@
     <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
-    <h2>Thêm Hóa Đơn</h2>
-    <form th:action="@{/hoa-don/add}" method="post">
-        <p>Ma: <input name="ma"></p>
+<div class="container">
+    <h2>Sửa Hóa Đơn</h2>
+    <form th:action="@{/hoa-don/add}" method="post" th:object="${hoaDon}">
+        <input type="hidden" th:field="*{id}" name="id" />
+        <p>Mã: <input th:field="*{ma}" name="ma" ></p>
         <p>Hành Động:
-            <select name="hanhDong">
-                <option selected disabled>Chọn hành động</option>
-                <option value="1">Tạo mới</option>
-                <option value="0">Sửa hóa đơn</option>
+            <select th:field="*{hanhDong}" name="hanhDong">
+                <option value="" selected disabled>Chọn hành động</option>
+                <option value="1" th:selected="${hoaDon.hanhDong == 1}">Tạo mới</option>
+                <option value="0" th:selected="${hoaDon.hanhDong == 0}">Sửa hóa đơn</option>
+                <option value="2" th:selected="${hoaDon.hanhDong == 2}">Xóa hóa đơn</option>
+                <option value="3" th:selected="${hoaDon.hanhDong == 3}">Xuất hóa đơn</option>
+                <option value="4" th:selected="${hoaDon.hanhDong == 4}">In hóa đơn</option>
+                <option value="5" th:selected="${hoaDon.hanhDong == 5}">Gửi email hóa đơn</option>
+                <option value="6" th:selected="${hoaDon.hanhDong == 6}">Thanh toán hóa đơn</option>
+                <option value="7" th:selected="${hoaDon.hanhDong == 7}">Chuyển trạng thái hóa đơn</option>
+                <option value="8" th:selected="${hoaDon.hanhDong == 8}">Gửi thông báo hóa đơn</option>
+                <option value="9" th:selected="${hoaDon.hanhDong == 9}">Lưu trữ hóa đơn</option>
+                <option value="10" th:selected="${hoaDon.hanhDong == 10}">Hủy hóa đơn</option>
+                <option value="11" th:selected="${hoaDon.hanhDong == 11}">Xem chi tiết hóa đơn</option>
+                <option value="12" th:selected="${hoaDon.hanhDong == 12}">Sao chép hóa đơn</option>
+                <option value="13" th:selected="${hoaDon.hanhDong == 13}">Cập nhật thông tin hóa đơn</option>
+                <option value="14" th:selected="${hoaDon.hanhDong == 14}">Báo cáo hóa đơn</option>
+                <option value="15" th:selected="${hoaDon.hanhDong == 15}">Kiểm tra hóa đơn</option>
             </select>
         </p>
         <p>Trạng Thái:
-            <select name="trangThai">
-                <option selected disabled>Chọn trạng thái</option>
-                <option value="1">Đang chờ xử lý</option>
-                <option value="0">Đã thanh toán</option>
+            <select th:field="*{trangThai}" name="trangThai">
+                <option value="" selected disabled>Chọn trạng thái</option>
+                <option value="1" th:selected="${hoaDon.trangThai == 1}">Đang chờ xử lý</option>
+                <option value="0" th:selected="${hoaDon.trangThai == 0}">Đã thanh toán</option>
+                <option value="2" th:selected="${hoaDon.trangThai == 2}">Đã hủy</option>
+                <option value="3" th:selected="${hoaDon.trangThai == 3}">Đang vận chuyển</option>
+                <option value="4" th:selected="${hoaDon.trangThai == 4}">Hoàn thành</option>
+                <option value="5" th:selected="${hoaDon.trangThai == 5}">Đã giao hàng</option>
             </select>
         </p>
-        <p>Ghi Chú: <input name="ghiChu"></p>
         <p>Loại Hóa Đơn:
-            <select name="loaiHoaDon">
-                <option selected disabled>Chọn loại hóa đơn</option>
+            <select th:field="*{loaiHoaDon}" name="loaiHoaDon">
+                <option value="" selected disabled>Chọn loại hóa đơn</option>
                 <option value="1">Tại quầy</option>
                 <option value="0">Mua online</option>
             </select>
         </p>
-        <p>Tổng Sản Phẩm: <input name="tongSanPham"></p>
-        <p>Tổng Tiền: <input name="tongTien"></p>
-        <p>Tên Người Nhận: <input name="tenNguoiNhan"></p>
-        <p>Số Điện Thoại: <input name="soDienThoai"></p>
-        <p>Địa Chỉ: <input name="diaChi"></p>
-        <p>Ngày Nhận: <input type="datetime-local" name="ngayNhan"></p>
-        <p>Ngày Thanh Toán: <input type="datetime-local" name="ngayThanhToan"></p>
-        <p>Ngày Tạo: <input type="datetime-local" name="ngayTao"></p>
-        <p>Ngày Sửa: <input type="datetime-local" name="ngaySua"></p>
-        <p>Người Tạo: <input name="nguoiTao"></p>
-        <p>Người Sửa: <input name="nguoiSua"></p>
-        <p>Deleted: <input name="deleted"></p>
+        <p>Ghi Chú: <input th:field="*{ghiChu}" name="ghiChu" ></p>
+        <p>Tổng Sản Phẩm: <input th:field="*{tongSanPham}" name="tongSanPham" ></p>
+        <p>Tổng Tiền: <input th:field="*{tongTien}" name="tongTien" ></p>
+        <p>Tên Người Nhận: <input th:field="*{tenNguoiNhan}" name="tenNguoiNhan" ></p>
+        <p>Số Điện Thoại: <input th:field="*{soDienThoai}" name="soDienThoai" ></p>
+        <p>Địa Chỉ: <input th:field="*{diaChi}" name="diaChi" ></p>
+        <p>Ngày Nhận: <input th:field="*{ngayNhan}" type="datetime-local" name="ngayNhan" ></p>
+        <p>Ngày Thanh Toán: <input th:field="*{ngayThanhToan}" type="datetime-local" name="ngayThanhToan" ></p>
+        <p>Ngày Tạo: <input th:field="*{ngayTao}" type="datetime-local" name="ngayTao" ></p>
+        <p>Ngày Sửa: <input th:field="*{ngaySua}" type="datetime-local" name="ngaySua" ></p>
+        <p>Người Tạo: <input th:field="*{nguoiTao}" name="nguoiTao" ></p>
+        <p>Người Sửa: <input th:field="*{nguoiSua}" name="nguoiSua" ></p>
+        <p>Deleted: <input th:field="*{deleted}" name="deleted" ></p>
 
-        <button type="submit" class="btn btn-primary mt-3">Thêm Hóa Đơn</button>
+        <button type="submit" class="btn btn-primary mt-3">Xác nhận</button>
     </form>
 </div>
+
 <!-- Add JS files -->
 <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>

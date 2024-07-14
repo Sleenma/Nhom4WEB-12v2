@@ -16,8 +16,21 @@ import java.util.UUID;
 @Repository
 public interface IHoaDon extends JpaRepository<HoaDon, UUID> {
 
-    @Query("SELECT h FROM HoaDon h WHERE h.ma LIKE :ma OR h.tenNguoiNhan LIKE :ten OR STR(h.soDienThoai) LIKE :sdt")
-    Page<HoaDon> search(@Param("ma") String ma, @Param("ten") String ten, @Param("sdt") String sdt, Pageable pageable);
+    @Query("SELECT h FROM HoaDon h " +
+            "WHERE (:ma IS NULL OR h.ma LIKE %:ma%) " +
+            "AND (:ten IS NULL OR h.tenNguoiNhan LIKE %:ten%) " +
+            "AND (:sdt IS NULL OR STR(h.soDienThoai) LIKE %:sdt%) " +
+            "AND (:loaiHoaDon IS NULL OR h.loaiHoaDon = :loaiHoaDon) " +
+            "AND (:trangThai IS NULL OR h.trangThai = :trangThai)")
+    Page<HoaDon> search(@Param("ma") String ma,
+                        @Param("ten") String ten,
+                        @Param("sdt") String sdt,
+                        @Param("loaiHoaDon") Integer loaiHoaDon,
+                        @Param("trangThai") Integer trangThai,
+                        Pageable pageable);
+
+    @Query("SELECT h FROM HoaDon h WHERE h.ma LIKE :keyword OR h.tenNguoiNhan LIKE :keyword OR STR(h.soDienThoai) LIKE :keyword")
+    Page<HoaDon> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     /**
      *
