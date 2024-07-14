@@ -494,73 +494,89 @@
     </div>
     <div class="container mt-3">
         <div class="row">
+            <!-- Danh Mục dropdown -->
             <div class="col">
-
-                <select  class="form-select danh">
+                <select name="maDanhMuc" class="form-select danh">
                     <option selected>Chọn Danh Mục</option>
-                    <!-- Add more options here -->
+                    <option th:each="danhMuc : ${danhMucList}"
+                            th:value="${danhMuc.maDanhMuc}"
+                            th:text="${danhMuc.tenDanhMuc}"></option>
                 </select>
             </div>
+            <!-- Hãng dropdown -->
             <div class="col">
-
                 <select id="hang" class="form-select danh">
-                    <option selected>Apple</option>
-                    <!-- Add more options here -->
+                    <option selected>Chọn Hãng</option>
+                    <option th:each="hang : ${hangList}"
+                            th:value="${hang.maHang}"
+                            th:text="${hang.tenHang}"></option>
                 </select>
             </div>
+            <!-- Hệ Điều Hành dropdown -->
             <div class="col">
-
-                <select id="heDieuHanh" class="form-select danh ">
+                <select id="heDieuHanh" class="form-select danh">
                     <option selected>Chọn Hệ Điều Hành</option>
-                    <!-- Add more options here -->
+                    <option th:each="heDieuHanh : ${heDieuHanhList}"
+                            th:value="${heDieuHanh.maHeDieuHanh}"
+                            th:text="${heDieuHanh.tenHeDieuHanh}"></option>
                 </select>
             </div>
+            <!-- Chip dropdown -->
             <div class="col">
-
                 <select id="chip" class="form-select danh">
                     <option selected>Chọn Chip</option>
-                    <!-- Add more options here -->
+                    <option th:each="chip : ${chipList}"
+                            th:value="${chip.maChip}"
+                            th:text="${chip.tenChip}"></option>
                 </select>
             </div>
+            <!-- Pin dropdown -->
             <div class="col">
-
                 <select id="pin" class="form-select danh">
                     <option selected>Chọn Pin</option>
-                    <!-- Add more options here -->
+                    <option th:each="pin : ${pinList}"
+                            th:value="${pin.maPin}"
+                            th:text="${pin.tenPin}"></option>
                 </select>
             </div>
         </div>
-        <div class="row mt-3 d-flex justify-content-center  ">
+        <div class="row mt-3 d-flex justify-content-center">
+            <!-- Màn Hình dropdown -->
             <div class="col-2">
-
                 <select id="manHinh" class="form-select danh">
                     <option selected>Chọn Màn Hình</option>
-                    <!-- Add more options here -->
+                    <option th:each="manHinh : ${doPhanGiaiList}"
+                            th:value="${manHinh.maDoPhanGiai}"
+                            th:text="${manHinh.tenDoPhanGiai}"></option>
                 </select>
             </div>
-            <div class="col-2">
 
+            <div class="col-2">
                 <select id="trangThai" class="form-select danh">
                     <option selected>Chọn Trạng thái</option>
-                    <!-- Add more options here -->
+                    <option value="0">Kinh doanh</option>
+                    <option value="1">Không kinh doanh</option>
                 </select>
             </div>
-            <div class="col-2">
 
+
+
+            <!-- Uncomment and populate additional dropdowns if needed -->
+            <!-- <div class="col-2">
                 <select id="sapXep" class="form-select danh">
                     <option selected>Mới</option>
                     <!-- Add more options here -->
-                </select>
-            </div>
-            <div class="col-2">
-
-                <select id="hienThi" class="form-select danh">
-                    <option selected>10/Pages</option>
-                    <!-- Add more options here -->
-                </select>
-            </div>
+            <!-- </select>
+        </div>
+        <div class="col-2">
+            <select id="hienThi" class="form-select danh">
+                <option selected>10/Pages</option>
+                <!-- Add more options here -->
+            <!-- </select>
+        </div> -->
         </div>
     </div>
+
     <a th:href="@{/SanPham/SanPhams/viewAdd}" class="btn btn-outline-success  float-end mb-3">
         <i class="icon-class-name"> <!-- Replace 'icon-class-name' with the class for your Icons8 icon -->
             <!-- You can use an image tag to display the icon -->
@@ -586,7 +602,10 @@
             <td th:text="${sanPham.maSanPham}"></td>
             <td th:text="${sanPham.tenSanPham}"></td>
             <td th:text="${sanPham.hang.tenHang}"></td>
-            <td></td>
+            <td>
+                <!-- Display the count of id_imei -->
+                <span th:text="${countIdImeiWhereDeletedIsZero != null ? countIdImeiWhereDeletedIsZero : 'N/A'}"></span>
+            </td>
             <td>
                         <span th:text="${sanPham.trangThai == 0 ? 'Kinh doanh' : 'Không kinh doanh'}"
                               th:class="${sanPham.trangThai == 0 ? 'badge bg-success' : 'badge bg-secondary'}"></span>
@@ -603,38 +622,11 @@
                     <i class="icon-class-name">
                         <img src="https://img.icons8.com/?size=25&id=OTqHRsz9MuVp&format=png&color=000000" alt="">
                     </i>
-
-
                 </a>
-                <!--                <a th:href="@{/SanPham/SanPhams/delete/{id}(id=${sanPham.id})}" class="btn btn-danger">-->
-                <!--                    <i class="icon-class-name">-->
-                <!--                        <img src="https://img.icons8.com/?size=25&id=OTqHRsz9MuVp&format=png&color=000000" alt=""/>-->
-                <!--                </a>-->
             </td>
         </tr>
         </tbody>
     </table>
-    <!-- Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thông tin sản phẩm</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Mã sản phẩm:</strong> <span id="productCode"></span></p>
-                    <p><strong>Tên sản phẩm:</strong> <span id="productName"></span></p>
-                    <p><strong>Hãng:</strong> <span id="productBrand"></span></p>
-                    <p><strong>Số lượng:</strong> <span id="productQuantity"></span></p>
-                    <p><strong>Trạng thái:</strong> <span id="productStatus"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -671,6 +663,27 @@
         </ul>
     </nav>
 
+    <!-- Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Mã sản phẩm:</strong> <span id="productCode"></span></p>
+                    <p><strong>Tên sản phẩm:</strong> <span id="productName"></span></p>
+                    <p><strong>Hãng:</strong> <span id="productBrand"></span></p>
+                    <p><strong>Số lượng:</strong> <span id="productQuantity"></span></p>
+                    <p><strong>Trạng thái:</strong> <span id="productStatus"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </main><!-- End #main -->
 

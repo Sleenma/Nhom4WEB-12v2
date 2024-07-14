@@ -24,6 +24,7 @@ public class DanhMucController {
         return "sanpham/danhmuc";
     }
 
+
     @PostMapping("/save")
     public String saveOrUpdate(@ModelAttribute("danhMuc") DanhMuc danhMuc) {
         danhMucRepository.save(danhMuc);
