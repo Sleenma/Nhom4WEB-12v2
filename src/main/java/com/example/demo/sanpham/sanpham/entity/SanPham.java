@@ -117,6 +117,9 @@ public class SanPham {
     @Column(name = "deleted")
     private Integer deleted;
 
+    @Column(name = "dung_Luong")
+    private Integer dungLuong;
+
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int CODE_LENGTH = 8;
 

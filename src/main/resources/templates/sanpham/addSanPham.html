@@ -480,11 +480,15 @@
 
                 <div class="col-md-12">
                     <label for="tenSanPham" class="form-label">Tên sản phẩm</label>
-                    <select id="tenSanPham" name="tenSanPham" class="form-control js-example-tags">
-                        <option selected="selected">Tên sản phẩm</option>
+                    <input type="text" class="form-control" name="tenSanPham" id="tenSanPham1" list="tenSanPham">
+                    <datalist id="tenSanPham" >
                         <option th:each="sanPham : ${sanPhams}" th:value="${sanPham.tenSanPham}"
                                 th:text="${sanPham.tenSanPham}"></option>
-                    </select>
+                    </datalist>
+<!--                    <input class="form-control" id="tenSanPham" type="text" th:field="*{tenSanPham}">-->
+<!--                    <option th:each="sanPham : ${sanPhams}" th:value="${sanPham.tenSanPham}"&ndash;&gt;-->
+                        <!--                                th:text="${sanPham.tenSanPham}"></option>-->
+                </div>
 <!--                    <label for="tenSanPham" class="form-label">Tên sản phẩm</label>-->
 <!--                    <select id="tenSanPham" class="form-control" name="tenSanPham" multiple="multiple">-->
 <!--                        <option th:each="sanPham : ${sanPhams}" th:value="${sanPham.tenSanPham}"-->
@@ -496,7 +500,7 @@
 <!--                        <option th:each="sanPham : ${sanPhams}" th:value="${sanPham.tenSanPham}"-->
 <!--                                th:text="${sanPham.tenSanPham}"></option>-->
 <!--                    </select>-->
-                </div>
+
 
                 <div class="col-md-12">
                     <label for="moTa" class="form-label">Mô tả</label>
@@ -505,72 +509,114 @@
 
                 <div class="col-md-4">
                     <label for="danhMuc" class="form-label">Danh mục</label>
-                    <select class="form-select" id="danhMuc" th:field="*{danhMuc.id}">
-                        <option th:each="danhMuc : ${danhMucList}" th:value="${danhMuc.id}"
-                                th:text="${danhMuc.tenDanhMuc}">Chọn danh mục
-                        </option>
-                    </select>
+                    <div class="input-group">
+                        <select class="form-select" id="danhMuc" th:field="*{danhMuc.id}">
+                            <option th:each="danhMuc : ${danhMucList}" th:value="${danhMuc.id}"
+                                    th:text="${danhMuc.tenDanhMuc}">Chọn danh mục
+                            </option>
+                        </select>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#HangMucAdd">
+                            +
+                        </button>
+
+                        <!-- Modal -->
+                    </div>
                 </div>
 
                 <div class="col-md-4">
                     <label for="hang" class="form-label">Hãng</label>
+                    <div class="input-group">
                     <select class="form-select" id="hang" th:field="*{hang.id}">
                         <option th:each="hang : ${hangList}" th:value="${hang.id}" th:text="${hang.tenHang}">Chọn hãng
                         </option>
                     </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#HangAdd">
+                            +
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col-md-4">
                     <label for="chip" class="form-label">Chip</label>
+                    <div class="input-group">
                     <select class="form-select" id="chip" th:field="*{chip.id}">
                         <option th:each="chip : ${chipList}" th:value="${chip.id}" th:text="${chip.TenChip}">Chọn chip
                         </option>
                     </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#ChipAdd">
+                            +
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col-md-4">
                     <label for="heDieuHanh" class="form-label">Hệ điều hành</label>
+                    <div class="input-group">
                     <select class="form-select" id="heDieuHanh" th:field="*{heDieuHanh.id}">
                         <option th:each="heDieuHanh : ${heDieuHanhList}" th:value="${heDieuHanh.id}"
                                 th:text="${heDieuHanh.tenHeDieuHanh}">Chọn hệ điều hành
                         </option>
                     </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#HeDieuHanhAdd">
+                            +
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col-md-4">
                     <label for="loaiSac" class="form-label">Loại Sạc</label>
+                    <div class="input-group">
                     <select class="form-select" id="loaiSac" th:field="*{loaiSac.id}">
                         <option th:each="loaiSac : ${loaiSacList}" th:value="${loaiSac.id}"
                                 th:text="${loaiSac.tenLoaiSac}">Chọn loại sạc
                         </option>
                     </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#LoaiSacAdd">
+                            +
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col-md-4">
                     <label for="theNho" class="form-label">Thẻ nhớ</label>
+                    <div class="input-group">
                     <select class="form-select" id="theNho" th:field="*{theNho.id}">
                         <option th:each="theNho : ${theNhoList}" th:value="${theNho.id}" th:text="${theNho.tenTheNho}">
                             Chọn thẻ nhớ
                         </option>
                     </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#TheNhoAdd">
+                            +
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col-md-6">
                     <label for="cameraTruoc" class="form-label">Camera trước</label>
+                    <div class="input-group">
                     <select class="form-select" id="cameraTruoc" th:field="*{cameraTruoc.id}">
                         <option th:each="cameraTruoc : ${cameraTruocList}" th:value="${cameraTruoc.id}"
                                 th:text="${cameraTruoc.tenCameraTruoc}">Chọn camera trước
                         </option>
                     </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#CamTruocAdd">
+                            +
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col-md-6">
                     <label for="cameraSau" class="form-label">Camera sau</label>
+                    <div class="input-group">
                     <select class="form-select" id="cameraSau" th:field="*{cameraSau.id}">
                         <option th:each="cameraSau : ${cameraSauList}" th:value="${cameraSau.id}"
                                 th:text="${cameraSau.tenCameraSau}">Chọn camera sau
                         </option>
                     </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#CamSauAdd">
+                            +
+                        </button>
 <!--                    <select id="test" class="form-select">-->
 <!--                        <option value="1">American Black Bear</option>-->
 <!--                        <option value="2">Asiatic Black Bear</option>-->
@@ -581,15 +627,39 @@
 <!--                        <option value="7">Polar Bear</option>-->
 <!--                        <option value="8">Spectacled Bear</option>-->
 <!--                    </select>-->
+                    </div>
                 </div>
 
                 <div class="col-md-6">
                     <label for="doPhanGiai" class="form-label">Độ phân giải</label>
+                    <div class="input-group">
                     <select class="form-select" id="doPhanGiai" th:field="*{doPhanGiai.id}">
                         <option th:each="doPhanGiai : ${doPhanGiaiList}" th:value="${doPhanGiai.id}"
                                 th:text="${doPhanGiai.tenDoPhanGiai}">Chọn độ phân giải
                         </option>
                     </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#DoPhanGiaiAdd">
+                            +
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="pin" class="form-label">Dung lượng Pin</label>
+                    <div class="input-group">
+                    <select class="form-select" id="pin" th:field="*{pin.id}">
+                        <option th:each="pin : ${pinList}" th:value="${pin.id}"
+                                th:text="${pin.tenPin}">Chọn Pin
+                        </option>
+                    </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#PinAdd">
+                            +
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="dungLuong" class="form-label">Trọng lượng</label>
+                    <input class="form-control" id="dungLuong" type="number" th:field="*{dungLuong}">
+
                 </div>
 
                 <div class="col-md-6">
@@ -599,10 +669,51 @@
                         <option value="1">Không kinh doanh</option>
                     </select>
                 </div>
+                <div class="container mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input type="checkbox">
+                                    <span>PHIÊN BẢN </span>
+                                </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Thêm</button>
-                    <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAll"></th>
+                                    <th>STT</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Màu Sắc</th>
+                                    <th>Số Lượng</th>
+                                    <th>Đơn Giá</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                                </thead>
+                                <tbody id="productTableBody">
+                                <tr>
+                                    <td><input type="checkbox" class="select-item"></td>
+                                    <td>3</td>
+                                    <td class="product-name"></td>
+                                    <td>Vàng</td>
+                                    <td>0</td>
+                                    <td><input type="text" value="0" class="form-control"></td>
+                                    <td>
+                                        <a class="btn "> <img src="https://img.icons8.com/?size=25&id=cWhjh7IgpFHy&format=png&color=000000" alt=""></a>
+
+                                        <a class="btn "> <img src="https://img.icons8.com/?size=25&id=OTqHRsz9MuVp&format=png&color=000000" alt=""></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer text-right">
+                            <button class="btn btn-primary">Hoàn Tất</button>
+                        </div>
+                    </div>
                 </div>
             </form><!-- End Multi Columns Form -->
         </div>
@@ -610,7 +721,212 @@
 
 
 </main><!-- End #main -->
+<div class="modal fade" id="HangMucAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DanhMucAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="DanhMucAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${danhMuc}" th:action="@{/SanPham/SanPhams/DanhMucs/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenDanhMuc">Tên:</label>
+                        <input type="text" class="form-control" id="tenDanhMuc" th:field="*{tenDanhMuc}" placeholder="Nhập tên danh mục">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="HangAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HangAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="HangAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${hang}" th:action="@{/SanPham/SanPhams/Hangs/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenHang">Tên:</label>
+                        <input type="text" class="form-control" id="tenHang" th:field="*{tenHang}" placeholder="Nhập tên">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="HeDieuHanhAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HeDieuHanhAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="HeDieuHanhAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${heDieuHanh}" th:action="@{/SanPham/SanPhams/HeDieuHanhs/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenHang">Tên:</label>
+                        <input type="text" class="form-control" id="tenHeDieuHanh" th:field="*{tenHeDieuHanh}" placeholder="Nhập tên">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ChipAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ChipAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ChipAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${chip}" th:action="@{/SanPham/SanPhams/Chips/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenChip">Tên:</label>
+                        <input type="text" class="form-control" id="tenChip" th:field="*{tenChip}" placeholder="Nhập tên">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="LoaiSacAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LoaiSacAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="LoaiSacAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${loaiSac}" th:action="@{/SanPham/SanPhams/LoaiSacs/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenLoaiSac">Tên:</label>
+                        <input type="text" class="form-control" id="tenLoaiSac" th:field="*{tenLoaiSac}" placeholder="Nhập tên">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="TheNhoAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="TheNhoAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="TheNhoAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${theNho}" th:action="@{/SanPham/SanPhams/TheNhos/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenTheNho">Tên:</label>
+                        <input type="text" class="form-control" id="tenTheNho" th:field="*{tenTheNho}" placeholder="Nhập tên">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="CamTruocAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="CameraTruocAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="CameraTruocAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${cameraTruoc}" th:action="@{/SanPham/SanPhams/CameraTruocs/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenCameraTruoc">Tên:</label>
+                        <input type="text" class="form-control" id="tenCameraTruoc" th:field="*{tenCameraTruoc}" placeholder="Nhập tên">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DoPhanGiaiAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DoPhanGiaiAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="DoPhanGiaiAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${doPhanGiai}" th:action="@{/SanPham/SanPhams/DoPhanGiais/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenDoPhanGiai">Tên:</label>
+                        <input type="text" class="form-control" id="tenDoPhanGiai" th:field="*{tenDoPhanGiai}" placeholder="Nhập tên">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PinAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PiniAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="PinAddLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${pin}" th:action="@{/SanPham/SanPhams/Pins/save}" method="post">
+                    <div class="form-group">
+                        <label for="tenPin">Tên:</label>
+                        <input type="text" class="form-control" id="tenPin" th:field="*{tenPin}" placeholder="Nhập tên">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ======= Footer ======= -->
 <footer id="footer" class="footer">
@@ -626,6 +942,12 @@
 
 </body>
 <script>
+    document.getElementById('selectAll').addEventListener('click', function(event) {
+        let checkboxes = document.querySelectorAll('.select-item');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = event.target.checked;
+        });
+    });
     $(".js-example-tags").select2({
         tags: true
     });
@@ -722,6 +1044,23 @@
 
             this.val(arr);
         },
+    });
+    document.getElementById('tenSanPham1').addEventListener('input', function() {
+        var inputVal = this.value;
+        var productNames = document.querySelectorAll('.product-name');
+        productNames.forEach(function(productName) {
+            productName.textContent = inputVal;
+        });
+    });
+    $(document).ready(function() {
+        // Initialize Select2 plugin
+        $('.js-example-tags').select2();
+
+        // Update table based on dropdown selection
+        $('#tenSanPham').on('change', function() {
+            var selectedProductName = $(this).val();
+            $('.product-name').text(selectedProductName);
+        });
     });
 </script>
 

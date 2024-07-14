@@ -473,10 +473,6 @@
             <label for="tenPin">Tên:</label>
             <input type="text" class="form-control" id="tenPin" th:field="*{tenPin}" placeholder="Nhập tên pin">
         </div>
-        <div class="form-group">
-            <label for="dungLuong">Dung lượng:</label>
-            <input type="text" class="form-control" id="dungLuong" th:field="*{dungLuong}" placeholder="Nhập dung lượng">
-        </div>
         <!-- Add more fields as per your Pin entity -->
         <button type="submit" class="btn btn-primary">Lưu</button>
     </form>
@@ -490,7 +486,6 @@
             <th>STT</th>
             <th>Mã</th>
             <th>Tên</th>
-            <th>Dung lượng</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -499,7 +494,6 @@
             <td th:text="${stat.count}"></td>
             <td th:text="${pin.maPin}"></td>
             <td th:text="${pin.tenPin}"></td>
-            <td th:text="${pin.dungLuong}"></td>
             <td>
                 <a th:href="@{/SanPham/Pins/edit/{id}(id=${pin.id})}" class="btn btn-warning">Sửa</a>
                 <a th:href="@{/SanPham/Pins/delete/{id}(id=${pin.id})}" class="btn btn-danger">Xóa</a>

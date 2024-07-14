@@ -33,8 +33,7 @@ public class Pin {
     @Column(name = "ten_pin")
     private String tenPin;
 
-    @Column(name = "dung_luong")
-    private int dungLuong;
+
 
     @Column(name = "mo_ta")
     private String moTa;

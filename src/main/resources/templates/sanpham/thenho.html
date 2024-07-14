@@ -475,10 +475,6 @@
             <label for="tenTheNho">Tên:</label>
             <input type="text" class="form-control" id="tenTheNho" th:field="*{tenTheNho}" placeholder="Nhập tên thẻ nhớ">
         </div>
-        <div class="form-group">
-            <label for="dungLuong">Dung lượng:</label>
-            <input type="number" class="form-control" id="dungLuong" th:field="*{dungLuong}" placeholder="Nhập dung lượng">
-        </div>
         <button type="submit" class="btn btn-primary">Lưu</button>
     </form>
 
@@ -491,7 +487,6 @@
             <th>STT</th>
             <th>Mã</th>
             <th>Tên</th>
-            <th>Dung lượng</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -500,7 +495,6 @@
             <td th:text="${stat.count}"></td>
             <td th:text="${theNho.maTheNho}"></td>
             <td th:text="${theNho.tenTheNho}"></td>
-            <td th:text="${theNho.dungLuong}"></td>
             <td>
                 <a th:href="@{/SanPham/TheNhos/edit/{id}(id=${theNho.id})}" class="btn btn-warning">Sửa</a>
                 <a th:href="@{/SanPham/TheNhos/delete/{id}(id=${theNho.id})}" class="btn btn-danger">Xóa</a>

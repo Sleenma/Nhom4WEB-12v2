@@ -35,8 +35,6 @@ public class TheNho {
     @Column(name = "ten_the_nho")
     private String tenTheNho;
 
-    @Column(name = "dung_luong")
-    private String dungLuong;
 
     @Column(name = "mo_ta")
     private String moTa;
