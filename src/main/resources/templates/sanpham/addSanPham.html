@@ -748,20 +748,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="HangAddLabel">Thêm danh mục</h1>
+                <h1 class="modal-title fs-5" id="HangAddLabel">Thêm hãng</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form th:object="${hang}" th:action="@{/SanPham/SanPhams/Hangs/save}" method="post">
                     <div class="form-group">
                         <label for="tenHang">Tên:</label>
-                        <input type="text" class="form-control" id="tenHang" th:field="*{tenHang}" placeholder="Nhập tên">
+                        <input type="text" class="form-control" id="tenHang" th:field="*{tenHang}" placeholder="Nhập tên hãng">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-
             </div>
         </div>
     </div>
@@ -771,14 +770,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="HeDieuHanhAddLabel">Thêm danh mục</h1>
+                <h1 class="modal-title fs-5" id="HeDieuHanhAddLabel">Thêm hệ điều hành</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form th:object="${heDieuHanh}" th:action="@{/SanPham/SanPhams/HeDieuHanhs/save}" method="post">
                     <div class="form-group">
                         <label for="tenHang">Tên:</label>
-                        <input type="text" class="form-control" id="tenHeDieuHanh" th:field="*{tenHeDieuHanh}" placeholder="Nhập tên">
+                        <input type="text" class="form-control" id="tenHeDieuHanh" th:field="*{tenHeDieuHanh}" placeholder="Nhập tên hệ điều hành">
                     </div>
                 </form>
             </div>
@@ -794,14 +793,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="ChipAddLabel">Thêm danh mục</h1>
+                <h1 class="modal-title fs-5" id="ChipAddLabel">Thêm chip</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form th:object="${chip}" th:action="@{/SanPham/SanPhams/Chips/save}" method="post">
                     <div class="form-group">
                         <label for="tenChip">Tên:</label>
-                        <input type="text" class="form-control" id="tenChip" th:field="*{tenChip}" placeholder="Nhập tên">
+                        <input type="text" class="form-control" id="tenChip" th:field="*{tenChip}" placeholder="Nhập tên chip">
                     </div>
                 </form>
             </div>
@@ -817,14 +816,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="LoaiSacAddLabel">Thêm danh mục</h1>
+                <h1 class="modal-title fs-5" id="LoaiSacAddLabel">Thêm loại sạc</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form th:object="${loaiSac}" th:action="@{/SanPham/SanPhams/LoaiSacs/save}" method="post">
                     <div class="form-group">
                         <label for="tenLoaiSac">Tên:</label>
-                        <input type="text" class="form-control" id="tenLoaiSac" th:field="*{tenLoaiSac}" placeholder="Nhập tên">
+                        <input type="text" class="form-control" id="tenLoaiSac" th:field="*{tenLoaiSac}" placeholder="Nhập tên loại sạc">
                     </div>
                 </form>
             </div>
@@ -840,20 +839,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="TheNhoAddLabel">Thêm danh mục</h1>
+                <h1 class="modal-title fs-5" id="TheNhoAddLabel">Thêm thẻ nhớ</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form th:object="${theNho}" th:action="@{/SanPham/SanPhams/TheNhos/save}" method="post">
                     <div class="form-group">
                         <label for="tenTheNho">Tên:</label>
-                        <input type="text" class="form-control" id="tenTheNho" th:field="*{tenTheNho}" placeholder="Nhập tên">
+                        <input type="text" class="form-control" id="tenTheNho" th:field="*{tenTheNho}" placeholder="Nhập tên thẻ nhớ">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-
             </div>
         </div>
     </div>
@@ -863,20 +861,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="CameraTruocAddLabel">Thêm danh mục</h1>
+                <h1 class="modal-title fs-5" id="CameraTruocAddLabel">Thêm camera trước</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form th:object="${cameraTruoc}" th:action="@{/SanPham/SanPhams/CameraTruocs/save}" method="post">
                     <div class="form-group">
                         <label for="tenCameraTruoc">Tên:</label>
-                        <input type="text" class="form-control" id="tenCameraTruoc" th:field="*{tenCameraTruoc}" placeholder="Nhập tên">
+                        <input type="text" class="form-control" id="tenCameraTruoc" th:field="*{tenCameraTruoc}" placeholder="Nhập tên camera trước">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-
             </div>
         </div>
     </div>
@@ -886,20 +883,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="DoPhanGiaiAddLabel">Thêm danh mục</h1>
+                <h1 class="modal-title fs-5" id="DoPhanGiaiAddLabel">Thêm độ phân giải</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form th:object="${doPhanGiai}" th:action="@{/SanPham/SanPhams/DoPhanGiais/save}" method="post">
                     <div class="form-group">
                         <label for="tenDoPhanGiai">Tên:</label>
-                        <input type="text" class="form-control" id="tenDoPhanGiai" th:field="*{tenDoPhanGiai}" placeholder="Nhập tên">
+                        <input type="text" class="form-control" id="tenDoPhanGiai" th:field="*{tenDoPhanGiai}" placeholder="Nhập tên độ phân giải">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-
             </div>
         </div>
     </div>
@@ -909,14 +905,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="PinAddLabel">Thêm danh mục</h1>
+                <h1 class="modal-title fs-5" id="PinAddLabel">Thêm pin</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form th:object="${pin}" th:action="@{/SanPham/SanPhams/Pins/save}" method="post">
                     <div class="form-group">
                         <label for="tenPin">Tên:</label>
-                        <input type="text" class="form-control" id="tenPin" th:field="*{tenPin}" placeholder="Nhập tên">
+                        <input type="text" class="form-control" id="tenPin" th:field="*{tenPin}" placeholder="Nhập tên pin">
                     </div>
                 </form>
             </div>

@@ -287,73 +287,84 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
+                    <a th:href="@{/SanPham/SanPhams}">
+                        <i class="bi bi-circle"></i><span>Sản phẩm</span>
+                    </a>
+                </li>
+                <li>
                     <a th:href="@{/SanPham/CameraSaus/list}">
                         <i class="bi bi-circle"></i><span>Camera Sau</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-accordion.html">
-                        <i class="bi bi-circle"></i><span>Accordion</span>
+                    <a th:href="@{/SanPham/CameraTruocs}">
+                        <i class="bi bi-circle"></i><span>Camera Trước</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-badges.html">
-                        <i class="bi bi-circle"></i><span>Badges</span>
+                    <a th:href="@{/SanPham/Chips}">
+                        <i class="bi bi-circle"></i><span>Chip</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-breadcrumbs.html">
-                        <i class="bi bi-circle"></i><span>Breadcrumbs</span>
+                    <a th:href="@{/SanPham/DanhMucs}">
+                        <i class="bi bi-circle"></i><span>Danh mục</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-buttons.html">
-                        <i class="bi bi-circle"></i><span>Buttons</span>
+                    <a th:href="@{/SanPham/DoPhanGiais}">
+                        <i class="bi bi-circle"></i><span>Độ phân giải</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-cards.html">
-                        <i class="bi bi-circle"></i><span>Cards</span>
+                    <a th:href="@{/SanPham/Hangs}">
+                        <i class="bi bi-circle"></i><span>Hãng</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-carousel.html">
-                        <i class="bi bi-circle"></i><span>Carousel</span>
+                    <a th:href="@{/SanPham/HeDieuHanhs}">
+                        <i class="bi bi-circle"></i><span>Hệ điều hành</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-list-group.html">
-                        <i class="bi bi-circle"></i><span>List group</span>
+                    <a th:href="@{/SanPham/LoaiSacs}">
+                        <i class="bi bi-circle"></i><span>Loại Sạc</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-modal.html">
-                        <i class="bi bi-circle"></i><span>Modal</span>
+                    <a th:href="@{/SanPham/Pins}">
+                        <i class="bi bi-circle"></i><span>Pin</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-tabs.html">
-                        <i class="bi bi-circle"></i><span>Tabs</span>
+                    <a th:href="@{/SanPham/TheNhos}">
+                        <i class="bi bi-circle"></i><span>Thẻ nhớ</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/SanPham/AnhSanPhams}">
+                        <i class="bi bi-circle"></i><span>Ảnh sản phẩm</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-pagination.html">
-                        <i class="bi bi-circle"></i><span>Pagination</span>
+                    <a th:href="@{/SanPham/Imeis}">
+                        <i class="bi bi-circle"></i><span>Imei</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-progress.html">
-                        <i class="bi bi-circle"></i><span>Progress</span>
+                    <a th:href="@{/SanPham/MauSacs}">
+                        <i class="bi bi-circle"></i><span>Màu sắc</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-spinners.html">
-                        <i class="bi bi-circle"></i><span>Spinners</span>
+                    <a th:href="@{/SanPham/Rams}">
+                        <i class="bi bi-circle"></i><span>Ram</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-tooltips.html">
-                        <i class="bi bi-circle"></i><span>Tooltips</span>
+                    <a th:href="@{/SanPham/Roms}">
+                        <i class="bi bi-circle"></i><span>Rom</span>
                     </a>
                 </li>
             </ul>
@@ -380,7 +391,7 @@
                     </a>
                 </li>
             </ul>
-        </li><!-- End Forms Nav -->
+        </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -446,7 +457,6 @@
                 </li>
             </ul>
         </li><!-- End Icons Nav -->
-
     </ul>
 
 </aside><!-- End Sidebar-->
@@ -465,11 +475,11 @@
                 <div class="form-group-inline">
                     <div>
                         <label for="fromDate">Từ ngày:</label>
-                        <input type="date" name="fromDate" id="fromDate" class="form-control" pattern="\d{4}-\d{2}-\d{2}">
+                        <input type="date" name="fromDate" id="fromDate" class="form-control" pattern="\d{4}-\d{2}-\d{2}" placeholder="từ ngày">
                     </div>
                     <div>
                         <label for="toDate">Đến ngày:</label>
-                        <input type="date" name="toDate" id="toDate" class="form-control" pattern="\d{4}-\d{2}-\d{2}">
+                        <input type="date" name="toDate" id="toDate" class="form-control" pattern="\d{4}-\d{2}-\d{2}" placeholder="đến ngày">
                     </div>
                 </div>
                 <div class="form-group-inline">
@@ -535,7 +545,7 @@
             <tr>
                 <th>STT</th>
                 <th>Mã hóa đơn</th>
-                <th>Mã nhân viên</th>
+                <th>Tên nhân viên</th>
                 <th>Tên khách hàng</th>
                 <th>Số điện thoại</th>
                 <th>Tổng tiền</th>
@@ -548,8 +558,8 @@
             <tr th:each="HoaDon, index : ${listHoaDon.content}">
                 <td th:text="${index.count}"></td>
                 <td th:text="${HoaDon.ma}"></td>
-                <td th:text="${HoaDon.idNhanVien}"></td>
-                <td th:text="${HoaDon.idKhachHang}"></td>
+                <td>Nguyễn Hải Yến</td>
+                <td>Khách lẻ</td>
                 <td th:text="${#strings.concat('0', HoaDon.soDienThoai)}"></td>
                 <td class="currency" th:text="${HoaDon.tongTien}"></td>
                 <td th:text="${HoaDon.formattedNgayTao}"></td>
