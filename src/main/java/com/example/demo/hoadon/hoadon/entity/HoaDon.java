@@ -14,6 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.UUID;
 
@@ -93,4 +94,9 @@ public class HoaDon {
 
     @Column(name = "deleted")
     private Integer deleted;
+
+    public String getFormattedNgayTao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.ngayTao.format(formatter);
+    }
 }
